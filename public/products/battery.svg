@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Battery placeholder">
+  <rect width="240" height="240" rx="28" fill="#f0fdf4"/>
+  <rect x="54" y="72" width="132" height="92" rx="18" fill="#0f172a"/>
+  <rect x="188" y="102" width="14" height="32" rx="5" fill="#0f172a"/>
+  <rect x="72" y="94" width="42" height="48" rx="8" fill="#22c55e"/>
+  <rect x="120" y="94" width="42" height="48" rx="8" fill="#86efac"/>
+  <path d="M120 38v24M120 178v24" stroke="#16a34a" stroke-width="10" stroke-linecap="round"/>
+</svg>

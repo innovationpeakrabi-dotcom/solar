@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Mounting placeholder">
+  <rect width="240" height="240" rx="28" fill="#f1f5f9"/>
+  <path d="M50 154h140M68 126h104M86 98h68" stroke="#475569" stroke-width="14" stroke-linecap="round"/>
+  <path d="M72 154 96 86M168 154l-24-68" stroke="#0f172a" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="72" cy="154" r="10" fill="#facc15"/>
+  <circle cx="168" cy="154" r="10" fill="#facc15"/>
+  <path d="M52 182h136" stroke="#94a3b8" stroke-width="10" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Solar panel placeholder">
+  <rect width="240" height="240" rx="28" fill="#eff6ff"/>
+  <circle cx="190" cy="46" r="22" fill="#facc15"/>
+  <g transform="translate(42 74)">
+    <rect x="0" y="0" width="156" height="100" rx="12" fill="#0f172a"/>
+    <path d="M12 16h132M12 42h132M12 68h132M42 10v80M78 10v80M114 10v80" stroke="#38bdf8" stroke-width="5" stroke-linecap="round"/>
+    <path d="M78 100v34" stroke="#475569" stroke-width="10" stroke-linecap="round"/>
+    <path d="M44 138h68" stroke="#475569" stroke-width="10" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -70,30 +70,34 @@ export function SolarDashboard() {
 
     if (!result.ok) {
       toast({ title: result.message ?? "เพิ่มสินค้าไม่สำเร็จ" });
-      return;
+      return result;
     }
 
     const nextCategoryId = getCategoryIdByName(product.category);
     if (nextCategoryId) setSelectedCategoryId(nextCategoryId);
     setSearch("");
+    const addResult = result;
     toast({ title: "เพิ่มสินค้าเรียบร้อยแล้ว" });
+    return addResult;
   };
 
   const handleUpdateProduct = async (product: NewSolarProductInput) => {
-    if (!editingProduct) return;
+    if (!editingProduct) return { ok: false, message: "ไม่พบสินค้าที่ต้องการแก้ไข" };
 
     const result = await updateProduct(editingProduct.id, toProductPayload(product));
 
     if (!result.ok) {
       toast({ title: result.message ?? "แก้ไขสินค้าไม่สำเร็จ" });
-      return;
+      return result;
     }
 
     const nextCategoryId = getCategoryIdByName(product.category);
     if (nextCategoryId) setSelectedCategoryId(nextCategoryId);
     setEditingProduct(null);
     setSearch("");
+    const updateResult = result;
     toast({ title: "แก้ไขสินค้าเรียบร้อยแล้ว" });
+    return updateResult;
   };
 
   const handleDeleteProduct = async (product: SolarProduct) => {

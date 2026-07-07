@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ChangeEvent, type ReactNode } from "react";
 import { ImagePlus, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,6 +6,7 @@ import { Input, Label, Select } from "@/components/ui/input";
 import { getSolarProductImage } from "@/data/solar-products";
 import { useInventory } from "@/hooks/use-inventory";
 import { useToast } from "@/hooks/use-toast";
+import { validateProductImageFile } from "@/lib/product-images";
 import type { SolarProductStatus } from "@/types/solar-product";
 
 function getStatusFromStock(stock: number): SolarProductStatus {
@@ -17,14 +18,36 @@ function getStatusFromStock(stock: number): SolarProductStatus {
 export function ProductForm() {
   const { categories, addProduct } = useInventory();
   const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [unit, setUnit] = useState("ชิ้น");
   const [stock, setStock] = useState("0");
   const [image, setImage] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [uploadError, setUploadError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleImageFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] ?? null;
+    if (!file) return;
+
+    const validation = validateProductImageFile(file);
+    if (!validation.ok) {
+      setImageFile(null);
+      setUploadError(validation.message);
+      event.target.value = "";
+      return;
+    }
+
+    setImageFile(file);
+    setImage("");
+    setUploadError("");
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitting) return;
 
     const stockNumber = Number(stock);
     if (!name.trim()) {
@@ -40,21 +63,32 @@ export function ProductForm() {
       return;
     }
 
+    setSubmitting(true);
+    setUploadError("");
+
     const result = await addProduct({
       name: name.trim(),
       category,
       stock: stockNumber,
       unit,
       status: getStatusFromStock(stockNumber),
-      image: image.trim() || getSolarProductImage(category)
+      image: imageFile ? "" : image.trim() || getSolarProductImage(category),
+      imageFile
     });
 
+    setSubmitting(false);
+
     toast({ title: result.ok ? "บันทึกสินค้าใน Supabase แล้ว" : result.message ?? "บันทึกสินค้าไม่สำเร็จ" });
+
+    if (!result.ok) setUploadError(result.message ?? "บันทึกสินค้าไม่สำเร็จ");
 
     if (result.ok) {
       setName("");
       setStock("0");
       setImage("");
+      setImageFile(null);
+      setUploadError("");
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   };
 
@@ -71,7 +105,18 @@ export function ProductForm() {
             <p className="mt-1 text-xs text-slate-500">ใช้ URL รูปหรือ placeholder ตามหมวดหมู่</p>
           </div>
           <Field label="Image URL">
-            <Input value={image} onChange={(event) => setImage(event.target.value)} placeholder="/products/solar.png" />
+            <Input value={image} onChange={(event) => setImage(event.target.value)} placeholder="/products/solar.png" disabled={Boolean(imageFile) || submitting} />
+          </Field>
+          <Field label="Image Upload">
+            <Input
+              ref={fileInputRef}
+              type="file"
+              accept=".jpg,.jpeg,.png,.webp,.svg,image/jpeg,image/png,image/webp,image/svg+xml"
+              onChange={handleImageFileChange}
+              disabled={submitting}
+            />
+            {imageFile ? <p className="mt-2 truncate text-xs text-slate-500">{imageFile.name}</p> : null}
+            {uploadError ? <p className="mt-2 text-xs font-medium text-rose-600">{uploadError}</p> : null}
           </Field>
         </CardContent>
       </Card>
@@ -107,7 +152,8 @@ export function ProductForm() {
             <Button type="button" variant="outline">
               ยกเลิก
             </Button>
-            <Button type="submit">
+            {submitting && imageFile ? <span className="self-center text-sm font-medium text-slate-600 dark:text-slate-300">กำลังอัปโหลดรูป...</span> : null}
+            <Button type="submit" disabled={submitting}>
               <Save className="h-4 w-4" />
               บันทึกสินค้า
             </Button>

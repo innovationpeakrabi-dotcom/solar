@@ -43,7 +43,7 @@ export function ProductCard({ product, onPreview, onEdit, onCopy, onDelete }: Pr
 
   return (
     <>
-      <article className="group relative overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
+      <article className="group relative overflow-visible rounded-lg border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
         <button
           type="button"
           className="block w-full border-b border-slate-100 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-900"
@@ -77,7 +77,7 @@ export function ProductCard({ product, onPreview, onEdit, onCopy, onDelete }: Pr
                   <EllipsisVertical className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
+              <DropdownMenuContent side="bottom" align="end">
                 <DropdownMenuItem onSelect={() => onPreview(product)}>
                   <Eye className="h-4 w-4" />
                   ดูรายละเอียด

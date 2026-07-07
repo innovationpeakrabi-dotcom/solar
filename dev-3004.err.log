@@ -1,2 +1,0 @@
-<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\469660\Desktop\New folder\.next\cache\webpack\server-development\13.pack.gz_' -> 'C:\Users\469660\Desktop\New folder\.next\cache\webpack\server-development\13.pack.gz'
-<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\469660\Desktop\New folder\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\469660\Desktop\New folder\.next\cache\webpack\client-development\0.pack.gz'

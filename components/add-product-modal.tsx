@@ -3,7 +3,7 @@ import { ImagePlus, PackagePlus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input, Label, Select } from "@/components/ui/input";
-import { PRODUCT_IMAGE_FALLBACK } from "@/lib/product-images";
+import { PRODUCT_IMAGE_FALLBACK, validateProductImageFile } from "@/lib/product-images";
 import type { NewSolarProductInput, SolarCategory, SolarProduct, SolarProductCategoryName, SolarProductStatus } from "@/types/solar-product";
 
 type AddProductModalProps = {
@@ -14,7 +14,7 @@ type AddProductModalProps = {
   product?: SolarProduct | null;
   title?: string;
   submitLabel?: string;
-  onSubmit: (product: NewSolarProductInput) => void | Promise<void>;
+  onSubmit: (product: NewSolarProductInput) => void | { ok: boolean; message?: string } | Promise<void | { ok: boolean; message?: string }>;
 };
 
 type AddProductForm = Pick<NewSolarProductInput, "name" | "category" | "stock" | "unit" | "image">;
@@ -43,6 +43,8 @@ export function AddProductModal({
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const computedStatus = useMemo(() => getStatusFromStock(Number(stockText)), [stockText]);
 
@@ -55,6 +57,7 @@ export function AddProductModal({
   const updateField = <Key extends keyof AddProductForm>(key: Key, value: AddProductForm[Key]) => {
     setForm((current) => ({ ...current, [key]: value }));
     setErrors((current) => ({ ...current, [key]: "" }));
+    setSubmitError("");
   };
 
   const handleOpenChange = (nextOpen: boolean) => {
@@ -77,6 +80,8 @@ export function AddProductModal({
     setSelectedImage(null);
     setImagePreview(options.nextProduct?.image ?? "");
     setErrors({});
+    setSubmitError("");
+    setSubmitting(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -86,6 +91,14 @@ export function AddProductModal({
     const file = event.target.files?.[0];
     if (!file) return;
 
+    const validation = validateProductImageFile(file);
+    if (!validation.ok) {
+      setErrors((current) => ({ ...current, image: validation.message }));
+      setSubmitError(validation.message);
+      event.target.value = "";
+      return;
+    }
+
     if (imagePreview.startsWith("blob:")) {
       URL.revokeObjectURL(imagePreview);
     }
@@ -93,6 +106,8 @@ export function AddProductModal({
     const previewUrl = URL.createObjectURL(file);
     setSelectedImage(file);
     setImagePreview(previewUrl);
+    setErrors((current) => ({ ...current, image: "" }));
+    setSubmitError("");
     updateField("image", "");
   };
 
@@ -103,14 +118,16 @@ export function AddProductModal({
 
     setSelectedImage(null);
     setImagePreview("");
+    setSubmitError("");
     updateField("image", "");
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitting) return;
 
     const stock = Number(stockText);
     const nextErrors: Record<string, string> = {};
@@ -124,7 +141,11 @@ export function AddProductModal({
       return;
     }
 
-    onSubmit({
+    setSubmitting(true);
+    setSubmitError("");
+
+    try {
+      const result = await onSubmit({
       sku: `TEMP-${Date.now()}`,
       name: form.name.trim(),
       category: form.category,
@@ -134,10 +155,18 @@ export function AddProductModal({
       image: selectedImage ? "" : form.image.trim(),
       imageFile: selectedImage,
       note: ""
-    });
+      });
 
-    resetForm(form.category, { revokePreview: false });
-    onOpenChange(false);
+      if (result && !result.ok) {
+        setSubmitError(result.message ?? "บันทึกสินค้าไม่สำเร็จ");
+        return;
+      }
+
+      resetForm(form.category, { revokePreview: false });
+      onOpenChange(false);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -180,12 +209,13 @@ export function AddProductModal({
                   </div>
                 ) : null}
               </div>
-              <input ref={fileInputRef} className="hidden" type="file" accept="image/*" onChange={handleImageChange} />
+              <input ref={fileInputRef} className="hidden" type="file" accept=".jpg,.jpeg,.png,.webp,.svg,image/jpeg,image/png,image/webp,image/svg+xml" onChange={handleImageChange} />
+              {errors.image ? <p className="text-xs font-medium text-rose-600">{errors.image}</p> : null}
               <div className="grid grid-cols-2 gap-2">
-                <Button type="button" variant="outline" size="sm" onClick={() => fileInputRef.current?.click()}>
+                <Button type="button" variant="outline" size="sm" onClick={() => fileInputRef.current?.click()} disabled={submitting}>
                   เปลี่ยนรูป
                 </Button>
-                <Button type="button" variant="outline" size="sm" onClick={removeSelectedImage} disabled={!imagePreview}>
+                <Button type="button" variant="outline" size="sm" onClick={removeSelectedImage} disabled={!imagePreview || submitting}>
                   <Trash2 className="h-3.5 w-3.5" />
                   ลบรูป
                 </Button>
@@ -238,11 +268,13 @@ export function AddProductModal({
           </div>
 
           <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-5 dark:border-slate-800 sm:flex-row sm:justify-end">
-            <Button type="button" variant="outline" onClick={() => handleOpenChange(false)}>
+            {submitting && selectedImage ? <p className="self-center text-sm font-medium text-slate-600 dark:text-slate-300">กำลังอัปโหลดรูป...</p> : null}
+            {submitError ? <p className="self-center text-sm font-medium text-rose-600">{submitError}</p> : null}
+            <Button type="button" variant="outline" onClick={() => handleOpenChange(false)} disabled={submitting}>
               ยกเลิก
             </Button>
-            <Button type="submit" className="bg-yellow-400 text-slate-950 hover:bg-yellow-300">
-              {submitLabel}
+            <Button type="submit" className="bg-yellow-400 text-slate-950 hover:bg-yellow-300" disabled={submitting}>
+              {submitting && selectedImage ? "กำลังอัปโหลดรูป..." : submitLabel}
             </Button>
           </div>
         </form>

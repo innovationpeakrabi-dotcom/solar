@@ -163,10 +163,13 @@ export function InventoryProvider({ children }: { children: ReactNode }) {
     const categoryId = getCategoryId(product.category);
     if (!categoryId) return { ok: false, message: "ไม่พบหมวดหมู่สินค้าใน Supabase" };
 
-    const imageResult = await getProductImageForSave(product);
+    const productId = crypto.randomUUID();
+    const imageResult = await getProductImageForSave(product, productId);
     if (!imageResult.ok) return { ok: false, message: imageResult.message };
 
+    // Save the public Supabase Storage URL into products.image_url.
     const { error } = await supabase.from("products").insert({
+      id: productId,
       name: product.name,
       category_id: categoryId,
       image_url: imageResult.imageUrl,
@@ -190,11 +193,12 @@ export function InventoryProvider({ children }: { children: ReactNode }) {
     const categoryId = getCategoryId(product.category);
     if (!categoryId) return { ok: false, message: "ไม่พบหมวดหมู่สินค้าใน Supabase" };
 
-    const imageResult = await getProductImageForSave(product);
+    const imageResult = await getProductImageForSave(product, id);
     if (!imageResult.ok) return { ok: false, message: imageResult.message };
 
     const { error } = await supabase
       .from("products")
+      // Save the public Supabase Storage URL into products.image_url.
       .update({
         name: product.name,
         category_id: categoryId,
@@ -321,9 +325,9 @@ export function InventoryProvider({ children }: { children: ReactNode }) {
   return <InventoryContext.Provider value={value}>{children}</InventoryContext.Provider>;
 }
 
-async function getProductImageForSave(product: ProductPayload) {
+async function getProductImageForSave(product: ProductPayload, productId: string) {
   if (product.imageFile) {
-    const uploaded = await uploadProductImage(product.imageFile);
+    const uploaded = await uploadProductImage(product.imageFile, productId);
     if (!uploaded.ok) {
       return { ok: false as const, message: uploaded.message };
     }

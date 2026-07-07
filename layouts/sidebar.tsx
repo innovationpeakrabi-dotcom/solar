@@ -31,13 +31,13 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
             <SunMedium className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-base font-bold tracking-tight text-white">Solar Stock Pro</p>
-            <p className="mt-0.5 text-xs font-medium text-cyan-100/80">Premium Inventory Suite</p>
+            <p className="text-[17px] font-semibold leading-tight tracking-[0.004em] text-white">Solar Stock Pro</p>
+            <p className="mt-1 text-[12.5px] font-normal leading-5 text-cyan-100/80">Premium Inventory Suite</p>
           </div>
         </div>
 
         <nav className="relative flex-1 overflow-y-auto px-3 py-5">
-          <div className="mb-3 px-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">Workspace</div>
+          <div className="mb-3 px-3 text-[11px] font-medium uppercase tracking-[0.16em] text-slate-400">Workspace</div>
           <div className="space-y-2">
             {navigation.map((item) => {
               const Icon = item.icon;
@@ -49,7 +49,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
                   href={item.href}
                   onClick={onClose}
                   className={cn(
-                    "group flex min-h-11 items-center gap-3 rounded-2xl px-3 text-sm font-semibold transition-all duration-200",
+                    "group flex min-h-11 items-center gap-3 rounded-2xl px-3 text-[14.5px] font-medium leading-6 tracking-[0.005em] transition-all duration-200",
                     active
                       ? "bg-white text-slate-950 shadow-[0_16px_38px_rgba(8,47,73,0.25)]"
                       : "text-slate-300 hover:bg-white/10 hover:text-white"
@@ -72,7 +72,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
           <div className="mt-6 rounded-3xl border border-white/10 bg-white/[0.06] p-4 shadow-2xl backdrop-blur">
             <div className="flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-yellow-300" />
-              <p className="text-sm font-semibold text-white">Live Solar Ops</p>
+              <p className="text-[14.5px] font-medium text-white">Live Solar Ops</p>
             </div>
             <div className="mt-4 grid grid-cols-2 gap-2">
               <Metric icon={Zap} label="Grid" value="Online" />
@@ -85,9 +85,9 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
           <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur">
             <div className="flex items-center gap-2">
               <PlugZap className="h-4 w-4 text-yellow-300" />
-              <p className="text-sm font-semibold text-white">คลังโซลาร์หลัก</p>
+              <p className="text-[14.5px] font-medium text-white">คลังโซลาร์หลัก</p>
             </div>
-            <p className="mt-1 text-xs text-slate-400">Bangkok Solar Distribution</p>
+            <p className="mt-1.5 text-[12.5px] font-normal leading-5 text-slate-400">Bangkok Solar Distribution</p>
             <div className="mt-4 h-2 rounded-full bg-white/10">
               <div className="h-2 w-[72%] rounded-full bg-gradient-to-r from-yellow-300 via-emerald-300 to-cyan-300 shadow-[0_0_18px_rgba(34,211,238,0.35)]" />
             </div>
@@ -103,7 +103,7 @@ function Metric({ icon: Icon, label, value }: { icon: typeof Zap; label: string;
     <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-3">
       <Icon className="h-4 w-4 text-cyan-200" />
       <p className="mt-2 text-[11px] text-slate-400">{label}</p>
-      <p className="text-xs font-bold text-white">{value}</p>
+      <p className="text-[12.5px] font-medium text-white">{value}</p>
     </div>
   );
 }

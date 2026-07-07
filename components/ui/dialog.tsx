@@ -17,7 +17,7 @@ export function DialogContent({
       <DialogPrimitive.Overlay className="fixed inset-0 z-40 bg-slate-950/35 backdrop-blur-sm data-[state=open]:animate-fade-in" />
       <DialogPrimitive.Content
         className={cn(
-          "fixed left-1/2 top-1/2 z-50 w-[min(560px,calc(100vw-32px))] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-slate-200 bg-white p-6 shadow-soft outline-none data-[state=open]:animate-slide-up dark:border-slate-800 dark:bg-slate-900",
+          "fixed left-1/2 top-1/2 z-50 w-[min(560px,calc(100vw-32px))] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-slate-200 bg-white p-6 shadow-soft outline-none data-[state=open]:animate-slide-up dark:border-slate-800 dark:bg-slate-900",
           className
         )}
         {...props}
@@ -38,9 +38,9 @@ export function DialogHeader({ className, ...props }: HTMLAttributes<HTMLDivElem
 }
 
 export function DialogTitle({ className, ...props }: ComponentPropsWithoutRef<typeof DialogPrimitive.Title>) {
-  return <DialogPrimitive.Title className={cn("text-lg font-semibold text-slate-950 dark:text-white", className)} {...props} />;
+  return <DialogPrimitive.Title className={cn("text-[22px] font-semibold leading-tight tracking-[0.004em] text-slate-950 dark:text-white", className)} {...props} />;
 }
 
 export function DialogDescription({ className, ...props }: ComponentPropsWithoutRef<typeof DialogPrimitive.Description>) {
-  return <DialogPrimitive.Description className={cn("mt-2 text-sm text-slate-500 dark:text-slate-400", className)} {...props} />;
+  return <DialogPrimitive.Description className={cn("mt-2 text-[13.5px] font-normal leading-6 text-slate-500 dark:text-slate-400", className)} {...props} />;
 }

@@ -11,6 +11,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["LINE Seed Sans TH", "sans-serif"]
+      },
       colors: {
         brand: {
           50: "#EFF6FF",

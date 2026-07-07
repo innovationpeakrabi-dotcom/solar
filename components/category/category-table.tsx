@@ -32,18 +32,18 @@ export function CategoryTable({ categories, getProductCount, onEdit, onDelete }:
                   <div className="flex items-center gap-3">
                     <CategoryIcon category={category} />
                     <div>
-                      <p className="font-bold text-slate-950 dark:text-white">{category.name}</p>
-                      <p className="text-xs text-slate-500">{category.icon || "ไม่มีไอคอน"}</p>
+                      <p className="font-semibold text-slate-950 dark:text-white">{category.name}</p>
+                      <p className="text-[12.5px] font-normal text-slate-500">{category.icon || "ไม่มีไอคอน"}</p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell className="max-w-md">
-                  <p className="line-clamp-2 text-slate-500 dark:text-slate-400">{category.description || "-"}</p>
+                  <p className="line-clamp-2 text-[13.5px] font-normal leading-6 text-slate-500 dark:text-slate-400">{category.description || "-"}</p>
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
                     <span className="h-7 w-7 rounded-full ring-4 ring-slate-100 dark:ring-slate-800" style={{ backgroundColor: category.color }} />
-                    <span className="font-mono text-xs text-slate-500">{category.color}</span>
+                    <span className="font-mono text-[12.5px] font-normal text-slate-500">{category.color}</span>
                   </div>
                 </TableCell>
                 <TableCell className="text-right">
@@ -67,13 +67,13 @@ export function CategoryTable({ categories, getProductCount, onEdit, onDelete }:
 
       <div className="grid gap-3 md:hidden">
         {categories.map((category) => (
-          <article key={category.id} className="rounded-3xl border border-white/70 bg-white/90 p-4 shadow-[0_16px_46px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-slate-950/75">
+          <article key={category.id} className="rounded-3xl border border-white/70 bg-white/90 p-5 shadow-[0_16px_46px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-slate-950/75">
             <div className="flex items-start justify-between gap-3">
               <div className="flex min-w-0 items-start gap-3">
                 <CategoryIcon category={category} />
                 <div className="min-w-0">
-                  <h3 className="font-bold text-slate-950 dark:text-white">{category.name}</h3>
-                  <p className="mt-1 line-clamp-2 text-sm text-slate-500 dark:text-slate-400">{category.description || "-"}</p>
+                  <h3 className="font-semibold text-slate-950 dark:text-white">{category.name}</h3>
+                  <p className="mt-1.5 line-clamp-2 text-[13.5px] font-normal leading-6 text-slate-500 dark:text-slate-400">{category.description || "-"}</p>
                 </div>
               </div>
               <Badge variant="blue">{getProductCount(category.name)}</Badge>
@@ -97,7 +97,7 @@ export function CategoryTable({ categories, getProductCount, onEdit, onDelete }:
 
 function CategoryIcon({ category }: { category: SolarCategory }) {
   return (
-    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-xs font-black text-white shadow-[0_12px_30px_rgba(15,23,42,0.12)]" style={{ backgroundColor: category.color }}>
+    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-xs font-semibold text-white shadow-[0_12px_30px_rgba(15,23,42,0.12)]" style={{ backgroundColor: category.color }}>
       {category.icon || category.name.slice(0, 2)}
     </span>
   );

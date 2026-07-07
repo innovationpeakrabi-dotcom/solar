@@ -36,11 +36,11 @@ export function AlertDialogFooter({ className, ...props }: HTMLAttributes<HTMLDi
 }
 
 export function AlertDialogTitle({ className, ...props }: ComponentPropsWithoutRef<typeof DialogPrimitive.Title>) {
-  return <DialogPrimitive.Title className={cn("text-lg font-semibold text-slate-950 dark:text-white", className)} {...props} />;
+  return <DialogPrimitive.Title className={cn("text-[22px] font-semibold leading-tight text-slate-950 dark:text-white", className)} {...props} />;
 }
 
 export function AlertDialogDescription({ className, ...props }: ComponentPropsWithoutRef<typeof DialogPrimitive.Description>) {
-  return <DialogPrimitive.Description className={cn("text-sm leading-6 text-slate-500 dark:text-slate-400", className)} {...props} />;
+  return <DialogPrimitive.Description className={cn("text-[13.5px] font-normal leading-6 text-slate-500 dark:text-slate-400", className)} {...props} />;
 }
 
 export function AlertDialogAction({ className, ...props }: ComponentPropsWithoutRef<"button">) {

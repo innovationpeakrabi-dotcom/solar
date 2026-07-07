@@ -88,11 +88,11 @@ export default function CategoriesPage() {
         onConfirm={handleDeleteCategory}
       />
 
-      <section className="premium-panel animate-soft-in rounded-[28px] p-5 lg:p-6">
+      <section className="premium-panel animate-soft-in rounded-[28px] p-6 lg:p-7">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="text-sm font-bold text-orange-600 dark:text-orange-300">Category Management</p>
-            <h2 className="mt-1 text-2xl font-black text-slate-950 dark:text-white">รายการหมวดหมู่ทั้งหมด</h2>
+            <p className="text-[13px] font-medium text-orange-600 dark:text-orange-300">Category Management</p>
+            <h2 className="mt-1 text-[24px] font-semibold leading-tight text-slate-950 dark:text-white">รายการหมวดหมู่ทั้งหมด</h2>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <Badge variant="blue">{filteredCategories.length} หมวดหมู่</Badge>
@@ -122,8 +122,8 @@ export default function CategoriesPage() {
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-100 to-cyan-100 text-slate-600 shadow-sm dark:from-orange-400/10 dark:to-cyan-400/10 dark:text-slate-300">
                 <FolderPlus className="h-7 w-7" />
               </div>
-              <h3 className="mt-4 text-lg font-black text-slate-950 dark:text-white">ไม่พบหมวดหมู่</h3>
-              <p className="mt-2 max-w-sm text-sm leading-6 text-slate-500 dark:text-slate-400">
+              <h3 className="mt-4 text-[18px] font-semibold text-slate-950 dark:text-white">ไม่พบหมวดหมู่</h3>
+              <p className="mt-2 max-w-sm text-[13.5px] font-normal leading-6 text-slate-500 dark:text-slate-400">
                 ลองเปลี่ยนคำค้นหา หรือเพิ่มหมวดหมู่ใหม่สำหรับสินค้า Solar
               </p>
             </div>

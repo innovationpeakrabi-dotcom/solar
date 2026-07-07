@@ -123,7 +123,7 @@ export function SolarDashboard() {
   };
 
   return (
-    <div className="animate-soft-in space-y-5 rounded-3xl bg-slate-100/80 p-4 pb-6 dark:bg-slate-950/30 sm:p-5">
+    <div className="animate-soft-in space-y-6 rounded-3xl bg-slate-100/80 p-5 pb-7 dark:bg-slate-950/30 sm:p-6">
       <SolarEquipmentModal open={equipmentOpen} onOpenChange={setEquipmentOpen} />
       <ProductImagePreview product={previewProduct} onOpenChange={(open) => !open && setPreviewProduct(null)} />
       <AddProductModal open={addProductOpen} onOpenChange={setAddProductOpen} defaultCategory={formDefaultCategory} categories={categories} onSubmit={handleAddProduct} />
@@ -140,7 +140,7 @@ export function SolarDashboard() {
         onSubmit={handleUpdateProduct}
       />
 
-      <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         <SummaryCard icon={Boxes} label="รายการสินค้า" value={products.length.toLocaleString("th-TH")} />
         <SummaryCard icon={BatteryCharging} label="สต็อกรวม" value={totalStock.toLocaleString("th-TH")} />
         <SummaryCard icon={AlertTriangle} label="ใกล้หมด" value={lowStock.toLocaleString("th-TH")} />
@@ -148,11 +148,11 @@ export function SolarDashboard() {
         <SummaryCard icon={FolderTree} label="หมวดสต็อก" value={categories.length.toLocaleString("th-TH")} />
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950 sm:p-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 className="text-xl font-bold text-slate-950 dark:text-white">หมวดหมู่สินค้า Solar</h2>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">เลือกหมวดหมู่จากข้อมูลจริงใน Supabase เพื่อดูรายการสินค้า</p>
+            <h2 className="text-[23px] font-semibold leading-tight text-slate-950 dark:text-white">หมวดหมู่สินค้า Solar</h2>
+            <p className="mt-1.5 text-[13.5px] font-normal leading-6 text-slate-500 dark:text-slate-400">เลือกหมวดหมู่จากข้อมูลจริงใน Supabase เพื่อดูรายการสินค้า</p>
           </div>
           <Button variant="outline" onClick={() => setEquipmentOpen(true)}>
             ดูรายการอุปกรณ์ติดตั้ง
@@ -160,7 +160,7 @@ export function SolarDashboard() {
         </div>
 
         {categories.length > 0 ? (
-          <div className="mt-4 grid gap-3 md:grid-cols-3 xl:grid-cols-4">
+          <div className="mt-5 grid gap-4 md:grid-cols-3 xl:grid-cols-4">
             {categories.map((category) => {
               const isActive = selectedCategoryId === category.id;
               const productCount = getProductCountByCategoryId(category.id);
@@ -169,7 +169,7 @@ export function SolarDashboard() {
                 <button
                   key={category.id}
                   className={[
-                    "rounded-lg border bg-white p-4 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:bg-slate-950",
+                    "rounded-lg border bg-white p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:bg-slate-950",
                     isActive
                       ? "border-orange-300 ring-2 ring-orange-200 dark:border-orange-400/60 dark:ring-orange-400/20"
                       : "border-slate-200 hover:border-slate-300 dark:border-slate-800"
@@ -182,8 +182,8 @@ export function SolarDashboard() {
                   <div className="flex items-start gap-3">
                     <CategoryIcon category={category} />
                     <span className="min-w-0">
-                      <span className="block text-base font-bold text-slate-950 dark:text-white">{category.name}</span>
-                      <span className="mt-1 line-clamp-2 block text-sm text-slate-500 dark:text-slate-400">{category.description || "ไม่มีคำอธิบายหมวดหมู่"}</span>
+                      <span className="block text-[17px] font-semibold leading-snug text-slate-950 dark:text-white">{category.name}</span>
+                      <span className="mt-1.5 line-clamp-2 block text-[13px] font-normal leading-6 text-slate-500 dark:text-slate-400">{category.description || "ไม่มีคำอธิบายหมวดหมู่"}</span>
                       <Badge className="mt-3" variant={isActive ? "amber" : "blue"}>
                         {productCount.toLocaleString("th-TH")} รายการ
                       </Badge>
@@ -198,12 +198,12 @@ export function SolarDashboard() {
         )}
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950 sm:p-6">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-sm font-semibold text-orange-600 dark:text-orange-300">Product Marketplace</p>
-            <h2 className="mt-1 text-xl font-bold text-slate-950 dark:text-white">{selectedCategoryData?.name ?? "ยังไม่มีหมวดหมู่"}</h2>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{selectedCategoryData?.description || "เลือกหมวดหมู่เพื่อดูสินค้าใน Supabase"}</p>
+            <p className="text-[13px] font-medium text-orange-600 dark:text-orange-300">Product Marketplace</p>
+            <h2 className="mt-1 text-[23px] font-semibold leading-tight text-slate-950 dark:text-white">{selectedCategoryData?.name ?? "ยังไม่มีหมวดหมู่"}</h2>
+            <p className="mt-1.5 text-[13.5px] font-normal leading-6 text-slate-500 dark:text-slate-400">{selectedCategoryData?.description || "เลือกหมวดหมู่เพื่อดูสินค้าใน Supabase"}</p>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
             <Badge variant="blue">{filteredProducts.length.toLocaleString("th-TH")} รายการ</Badge>
@@ -221,13 +221,13 @@ export function SolarDashboard() {
         {productsError ? <ErrorState message={productsError} /> : null}
 
         {loadingProducts ? (
-          <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          <div className="mt-5 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {Array.from({ length: 10 }).map((_, index) => (
               <Skeleton key={index} className="h-72 w-full rounded-lg" />
             ))}
           </div>
         ) : (
-          <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          <div className="mt-5 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} onPreview={setPreviewProduct} onEdit={setEditingProduct} onCopy={handleCopyProduct} onDelete={handleDeleteProduct} />
             ))}
@@ -245,7 +245,7 @@ export function SolarDashboard() {
 function CategoryIcon({ category }: { category: SolarCategory }) {
   return (
     <span
-      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-sm font-bold text-white shadow-sm"
+      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-sm font-semibold text-white shadow-sm"
       style={{ backgroundColor: category.color || "#F97316" }}
     >
       {category.icon || category.name.slice(0, 2)}
@@ -255,11 +255,11 @@ function CategoryIcon({ category }: { category: SolarCategory }) {
 
 function SummaryCard({ icon: Icon, label, value }: { icon: LucideIcon; label: string; value: string }) {
   return (
-    <article className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+    <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-sm text-slate-500 dark:text-slate-400">{label}</p>
-          <p className="mt-1 text-2xl font-bold text-slate-950 dark:text-white">{value}</p>
+          <p className="text-[13px] font-normal leading-5 text-slate-500 dark:text-slate-400">{label}</p>
+          <p className="mt-1.5 text-[32px] font-bold leading-none text-slate-950 dark:text-white">{value}</p>
         </div>
         <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-orange-50 text-orange-600 dark:bg-orange-400/10 dark:text-orange-300">
           <Icon className="h-5 w-5" />
@@ -281,8 +281,8 @@ function SolarEmptyState({ title, description }: { title: string; description: s
   return (
     <div className="mt-4 flex min-h-56 flex-col items-center justify-center rounded-lg border border-dashed border-slate-300 bg-slate-50 p-8 text-center dark:border-slate-700 dark:bg-slate-900">
       <PackageOpen className="h-10 w-10 text-slate-400" />
-      <h3 className="mt-3 text-base font-bold text-slate-950 dark:text-white">{title}</h3>
-      <p className="mt-2 max-w-sm text-sm text-slate-500 dark:text-slate-400">{description}</p>
+      <h3 className="mt-3 text-[16.5px] font-semibold leading-snug text-slate-950 dark:text-white">{title}</h3>
+      <p className="mt-2 max-w-sm text-[13px] font-normal leading-5 text-slate-500 dark:text-slate-400">{description}</p>
     </div>
   );
 }

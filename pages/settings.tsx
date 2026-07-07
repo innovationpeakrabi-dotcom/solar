@@ -13,7 +13,7 @@ export default function SettingsPage() {
   return (
     <DashboardLayout title="ตั้งค่า">
       <PageHeader title="ตั้งค่า" description="ตั้งค่าคลังสินค้า การแจ้งเตือน เอกสาร และสิทธิ์การใช้งาน" />
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_420px]">
+      <div className="grid gap-7 xl:grid-cols-[minmax(0,1fr)_420px]">
         <Card>
           <CardHeader>
             <CardTitle>ข้อมูลคลังหลัก</CardTitle>
@@ -64,13 +64,13 @@ function SettingCard({
 }) {
   return (
     <Card className="hover:shadow-soft">
-      <CardContent className="flex gap-4 p-5">
+      <CardContent className="flex gap-4 p-6">
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-500/15">
           <Icon className="h-5 w-5" />
         </div>
         <div>
-          <p className="font-semibold text-slate-950 dark:text-white">{title}</p>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{description}</p>
+          <p className="text-[16.5px] font-semibold leading-6 text-slate-950 dark:text-white">{title}</p>
+          <p className="mt-1.5 text-[13.5px] font-normal leading-6 text-slate-500 dark:text-slate-400">{description}</p>
         </div>
       </CardContent>
     </Card>

@@ -175,7 +175,7 @@ export function DropdownMenuItem({
     <button
       type="button"
       className={cn(
-        "flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800",
+        "flex w-full items-center gap-2 px-3 py-2 text-left text-[14px] font-normal leading-6 text-slate-700 transition-colors hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800",
         className
       )}
       onClick={() => {

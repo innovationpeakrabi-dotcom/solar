@@ -25,7 +25,7 @@ export function DashboardLayout({ children, title }: { children: ReactNode; titl
             darkMode={darkMode}
             onToggleDarkMode={() => setDarkMode((value) => !value)}
           />
-          <main className="mx-auto w-full max-w-[1720px] px-4 py-5 sm:px-6 lg:px-8 lg:py-8">{children}</main>
+          <main className="mx-auto w-full max-w-[1720px] px-4 py-6 sm:px-6 lg:px-8 lg:py-9">{children}</main>
         </div>
       </div>
     </>

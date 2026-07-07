@@ -93,16 +93,16 @@ export function ProductForm() {
   };
 
   return (
-    <form className="grid gap-6 lg:grid-cols-[360px_1fr]" onSubmit={handleSubmit}>
+    <form className="grid gap-7 lg:grid-cols-[360px_1fr]" onSubmit={handleSubmit}>
       <Card>
         <CardHeader>
           <CardTitle>รูปสินค้า</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-5">
           <div className="flex aspect-square flex-col items-center justify-center rounded-lg border border-dashed border-slate-300 bg-slate-50 text-center dark:border-slate-700 dark:bg-slate-900">
             <ImagePlus className="h-10 w-10 text-slate-400" />
-            <p className="mt-3 text-sm font-medium text-slate-700 dark:text-slate-200">รูปสินค้า</p>
-            <p className="mt-1 text-xs text-slate-500">ใช้ URL รูปหรือ placeholder ตามหมวดหมู่</p>
+            <p className="mt-3 text-[14px] font-normal leading-6 text-slate-700 dark:text-slate-200">รูปสินค้า</p>
+            <p className="mt-1 text-[12.5px] font-normal leading-5 text-slate-500">ใช้ URL รูปหรือ placeholder ตามหมวดหมู่</p>
           </div>
           <Field label="Image URL">
             <Input value={image} onChange={(event) => setImage(event.target.value)} placeholder="/products/solar.png" disabled={Boolean(imageFile) || submitting} />
@@ -115,8 +115,8 @@ export function ProductForm() {
               onChange={handleImageFileChange}
               disabled={submitting}
             />
-            {imageFile ? <p className="mt-2 truncate text-xs text-slate-500">{imageFile.name}</p> : null}
-            {uploadError ? <p className="mt-2 text-xs font-medium text-rose-600">{uploadError}</p> : null}
+            {imageFile ? <p className="mt-2 truncate text-[12.5px] font-normal leading-5 text-slate-500">{imageFile.name}</p> : null}
+            {uploadError ? <p className="mt-2 text-[12.5px] font-normal leading-5 text-rose-600">{uploadError}</p> : null}
           </Field>
         </CardContent>
       </Card>
@@ -125,7 +125,7 @@ export function ProductForm() {
         <CardHeader>
           <CardTitle>ข้อมูลสินค้า</CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-5 md:grid-cols-2">
+        <CardContent className="grid gap-6 md:grid-cols-2">
           <Field label="ชื่อสินค้า" className="md:col-span-2">
             <Input value={name} onChange={(event) => setName(event.target.value)} placeholder="ระบุชื่อสินค้า" />
           </Field>
@@ -152,7 +152,7 @@ export function ProductForm() {
             <Button type="button" variant="outline">
               ยกเลิก
             </Button>
-            {submitting && imageFile ? <span className="self-center text-sm font-medium text-slate-600 dark:text-slate-300">กำลังอัปโหลดรูป...</span> : null}
+            {submitting && imageFile ? <span className="self-center text-[13.5px] font-normal text-slate-600 dark:text-slate-300">กำลังอัปโหลดรูป...</span> : null}
             <Button type="submit" disabled={submitting}>
               <Save className="h-4 w-4" />
               บันทึกสินค้า

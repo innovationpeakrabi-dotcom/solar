@@ -63,9 +63,9 @@ export function ProductCard({ product, onPreview, onEdit, onCopy, onDelete }: Pr
           </div>
         </button>
 
-        <div className="space-y-3 p-3">
+        <div className="space-y-3.5 p-4">
           <div className="flex items-start justify-between gap-2">
-            <h3 className="line-clamp-2 min-h-10 text-sm font-semibold leading-5 text-slate-950 dark:text-white">{product.name}</h3>
+            <h3 className="line-clamp-2 min-h-10 text-[15px] font-semibold leading-6 text-slate-950 dark:text-white">{product.name}</h3>
             <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -101,9 +101,9 @@ export function ProductCard({ product, onPreview, onEdit, onCopy, onDelete }: Pr
 
           <div className="flex items-center justify-between gap-2">
             <div>
-              <p className="text-xs text-slate-500 dark:text-slate-400">คงเหลือ</p>
-              <p className="text-base font-bold text-slate-950 dark:text-white">
-                {formatNumber(product.stock)} <span className="text-xs font-medium text-slate-500">{product.unit}</span>
+              <p className="text-[12.5px] font-normal text-slate-500 dark:text-slate-400">คงเหลือ</p>
+              <p className="text-[18px] font-bold leading-none text-slate-950 dark:text-white">
+                {formatNumber(product.stock)} <span className="text-[12.5px] font-normal text-slate-500">{product.unit}</span>
               </p>
             </div>
             <StockBadge stock={product.stock} status={product.status} />
@@ -117,7 +117,7 @@ export function ProductCard({ product, onPreview, onEdit, onCopy, onDelete }: Pr
             <AlertDialogTitle>ลบสินค้า</AlertDialogTitle>
             <AlertDialogDescription>
               คุณต้องการลบสินค้า
-              <span className="mt-2 block font-semibold text-slate-950 dark:text-white">"{product.name}"</span>
+              <span className="mt-2 block font-medium text-slate-950 dark:text-white">"{product.name}"</span>
               ออกจากระบบใช่หรือไม่?
               <span className="mt-2 block text-rose-600 dark:text-rose-300">การดำเนินการนี้ไม่สามารถย้อนกลับได้</span>
             </AlertDialogDescription>
@@ -164,13 +164,13 @@ export function ProductImagePreview({ product, onOpenChange }: { product: SolarP
               />
             </div>
             <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-              <h3 className="text-lg font-semibold text-slate-950 dark:text-white">{product.name}</h3>
+              <h3 className="text-[18px] font-semibold leading-snug text-slate-950 dark:text-white">{product.name}</h3>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <DetailItem label="หมวดหมู่" value={product.category || "-"} />
                 <DetailItem label="จำนวนคงเหลือ" value={formatNumber(product.stock)} />
                 <DetailItem label="หน่วย" value={product.unit} />
                 <div>
-                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400">สถานะ</p>
+                  <p className="text-[12.5px] font-normal text-slate-500 dark:text-slate-400">สถานะ</p>
                   <div className="mt-1">
                     <StockBadge stock={product.stock} status={product.status} />
                   </div>
@@ -187,8 +187,8 @@ export function ProductImagePreview({ product, onOpenChange }: { product: SolarP
 function DetailItem({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{label}</p>
-      <p className="mt-1 text-sm font-semibold text-slate-950 dark:text-white">{value}</p>
+      <p className="text-[12.5px] font-normal text-slate-500 dark:text-slate-400">{label}</p>
+      <p className="mt-1 text-[14px] font-medium leading-6 text-slate-950 dark:text-white">{value}</p>
     </div>
   );
 }
@@ -202,7 +202,7 @@ function StockBadge({ stock, status }: { stock: number; status: string }) {
         : "bg-emerald-50 text-emerald-700 ring-emerald-100 dark:bg-emerald-400/10 dark:text-emerald-200 dark:ring-emerald-400/20";
 
   return (
-    <span className={cn("inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold ring-1", style)}>
+    <span className={cn("inline-flex shrink-0 items-center gap-1 rounded-full px-2.5 py-1 text-[12px] font-medium ring-1", style)}>
       <span className="h-1.5 w-1.5 rounded-full bg-current" />
       {status}
     </span>

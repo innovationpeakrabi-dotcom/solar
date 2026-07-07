@@ -180,8 +180,8 @@ export function AddProductModal({
           <DialogDescription>บันทึกรายการสินค้าไว้ในหน้านี้ชั่วคราว โดยยังไม่เชื่อมต่อฐานข้อมูลหรือ API</DialogDescription>
         </DialogHeader>
 
-        <form className="space-y-5 p-5" onSubmit={handleSubmit}>
-          <div className="grid gap-5 lg:grid-cols-[220px_minmax(0,1fr)]">
+        <form className="space-y-6 p-6" onSubmit={handleSubmit}>
+          <div className="grid gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
             <div className="space-y-3">
               <Label>รูปภาพสินค้า</Label>
               <div className="overflow-hidden rounded-lg border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950">
@@ -198,19 +198,19 @@ export function AddProductModal({
                   ) : (
                     <div className="flex h-full w-full flex-col items-center justify-center rounded-md border border-dashed border-slate-300 bg-white text-center dark:border-slate-700 dark:bg-slate-900">
                       <ImagePlus className="h-10 w-10 text-slate-400" />
-                      <p className="mt-3 px-4 text-sm font-medium text-slate-600 dark:text-slate-300">เลือกรูปภาพสินค้า</p>
-                      <p className="mt-1 px-4 text-xs text-slate-400">ใช้ preview ชั่วคราวก่อนบันทึก</p>
+                      <p className="mt-3 px-4 text-[14px] font-normal leading-6 text-slate-600 dark:text-slate-300">เลือกรูปภาพสินค้า</p>
+                      <p className="mt-1 px-4 text-[12.5px] font-normal leading-5 text-slate-400">ใช้ preview ชั่วคราวก่อนบันทึก</p>
                     </div>
                   )}
                 </div>
                 {selectedImage ? (
-                  <div className="border-t border-slate-200 px-3 py-2 text-xs text-slate-500 dark:border-slate-800">
+                  <div className="border-t border-slate-200 px-3 py-2 text-[12.5px] font-normal text-slate-500 dark:border-slate-800">
                     <p className="truncate">{selectedImage.name}</p>
                   </div>
                 ) : null}
               </div>
               <input ref={fileInputRef} className="hidden" type="file" accept=".jpg,.jpeg,.png,.webp,.svg,image/jpeg,image/png,image/webp,image/svg+xml" onChange={handleImageChange} />
-              {errors.image ? <p className="text-xs font-medium text-rose-600">{errors.image}</p> : null}
+              {errors.image ? <p className="text-[12.5px] font-normal leading-5 text-rose-600">{errors.image}</p> : null}
               <div className="grid grid-cols-2 gap-2">
                 <Button type="button" variant="outline" size="sm" onClick={() => fileInputRef.current?.click()} disabled={submitting}>
                   เปลี่ยนรูป
@@ -222,7 +222,7 @@ export function AddProductModal({
               </div>
             </div>
 
-            <div className="grid content-start gap-4 md:grid-cols-2">
+            <div className="grid content-start gap-5 md:grid-cols-2">
               <Field label="ชื่อสินค้า" error={errors.name}>
                 <Input value={form.name} onChange={(event) => updateField("name", event.target.value)} placeholder="เช่น Solar Panel 700W" />
               </Field>
@@ -260,7 +260,7 @@ export function AddProductModal({
               </Field>
 
               <Field label="สถานะ">
-                <div className="flex h-10 items-center rounded-md border border-slate-200 bg-slate-50 px-3 text-sm font-semibold text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100">
+                <div className="flex h-10 items-center rounded-md border border-slate-200 bg-slate-50 px-3 text-[14px] font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100">
                   {computedStatus}
                 </div>
               </Field>
@@ -268,8 +268,8 @@ export function AddProductModal({
           </div>
 
           <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-5 dark:border-slate-800 sm:flex-row sm:justify-end">
-            {submitting && selectedImage ? <p className="self-center text-sm font-medium text-slate-600 dark:text-slate-300">กำลังอัปโหลดรูป...</p> : null}
-            {submitError ? <p className="self-center text-sm font-medium text-rose-600">{submitError}</p> : null}
+            {submitting && selectedImage ? <p className="self-center text-[14px] font-normal leading-6 text-slate-600 dark:text-slate-300">กำลังอัปโหลดรูป...</p> : null}
+            {submitError ? <p className="self-center text-[13.5px] font-normal text-rose-600">{submitError}</p> : null}
             <Button type="button" variant="outline" onClick={() => handleOpenChange(false)} disabled={submitting}>
               ยกเลิก
             </Button>
@@ -288,7 +288,7 @@ function Field({ label, error, children }: { label: string; error?: string; chil
     <div className="space-y-2">
       <Label>{label}</Label>
       {children}
-      {error ? <p className="text-xs font-medium text-rose-600">{error}</p> : null}
+      {error ? <p className="text-[12.5px] font-normal leading-5 text-rose-600">{error}</p> : null}
     </div>
   );
 }

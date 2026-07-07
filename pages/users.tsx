@@ -55,8 +55,8 @@ export default function UsersPage() {
           <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-300">
             <Users className="h-7 w-7" />
           </div>
-          <h2 className="mt-4 text-lg font-semibold text-slate-950 dark:text-white">ยังไม่มีตารางผู้ใช้งานใน Supabase</h2>
-          <p className="mt-2 max-w-md text-sm text-slate-500 dark:text-slate-400">
+          <h2 className="mt-4 text-[18px] font-semibold leading-snug text-slate-950 dark:text-white">ยังไม่มีตารางผู้ใช้งานใน Supabase</h2>
+          <p className="mt-2 max-w-md text-[14px] font-normal leading-6 text-slate-500 dark:text-slate-400">
             ลบข้อมูล mock ออกจากหน้านี้แล้ว เพื่อให้ข้อมูลบนหน้าเว็บไม่คลาดเคลื่อนจากฐานข้อมูลจริง
           </p>
         </CardContent>

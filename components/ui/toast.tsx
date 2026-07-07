@@ -15,8 +15,8 @@ export function ToastViewport() {
           <div className="flex items-start gap-3">
             <CheckCircle2 className="mt-0.5 h-5 w-5 text-emerald-500" />
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-semibold text-slate-950 dark:text-white">{toast.title}</p>
-              {toast.description ? <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{toast.description}</p> : null}
+              <p className="text-[14px] font-medium text-slate-950 dark:text-white">{toast.title}</p>
+              {toast.description ? <p className="mt-1 text-[13px] font-normal leading-5 text-slate-500 dark:text-slate-400">{toast.description}</p> : null}
             </div>
             <Button variant="ghost" size="icon" aria-label="ปิดแจ้งเตือน" onClick={() => dismiss(toast.id)}>
               <X className="h-4 w-4" />

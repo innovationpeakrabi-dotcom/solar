@@ -41,12 +41,12 @@ export function ProductTable({ products, compact = false, onView, onEdit, onDele
                       alt={product.name}
                       className="h-11 w-11 rounded-md object-contain ring-1 ring-slate-200 dark:ring-slate-700"
                     />
-                    <p className="truncate font-medium text-slate-950 dark:text-white">{product.name}</p>
+                    <p className="truncate font-medium leading-6 text-slate-950 dark:text-white">{product.name}</p>
                   </div>
                 </TableCell>
                 <TableCell>{product.category || "-"}</TableCell>
                 <TableCell>{product.unit}</TableCell>
-                <TableCell className="text-right font-semibold">{formatNumber(product.stock)}</TableCell>
+                <TableCell className="text-right font-bold">{formatNumber(product.stock)}</TableCell>
                 <TableCell>
                   <ProductSupabaseStatusBadge status={product.status} />
                 </TableCell>

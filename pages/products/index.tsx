@@ -51,8 +51,8 @@ export default function ProductsPage() {
         }
       />
 
-      <Card className="mb-5">
-        <CardContent className="grid gap-3 p-4 md:grid-cols-[1fr_180px_180px_auto]">
+      <Card className="mb-6">
+        <CardContent className="grid gap-4 p-5 md:grid-cols-[1fr_180px_180px_auto]">
           <div className="relative">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <Input className="pl-9" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="ค้นหาชื่อสินค้า หรือสถานะ" />
@@ -83,7 +83,7 @@ export default function ProductsPage() {
       </Card>
 
       {productsError ? (
-        <div className="mb-5 rounded-lg border border-rose-200 bg-rose-50 p-4 text-sm font-medium text-rose-700 dark:border-rose-900 dark:bg-rose-950 dark:text-rose-200">
+        <div className="mb-6 rounded-lg border border-rose-200 bg-rose-50 p-4 text-[13.5px] font-normal leading-6 text-rose-700 dark:border-rose-900 dark:bg-rose-950 dark:text-rose-200">
           {productsError}
         </div>
       ) : null}

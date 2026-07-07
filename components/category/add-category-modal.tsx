@@ -8,7 +8,7 @@ import type { CategoryFormInput } from "@/types/solar-product";
 type AddCategoryModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit: (category: CategoryFormInput) => { ok: boolean; message?: string };
+  onSubmit: (category: CategoryFormInput) => Promise<{ ok: boolean; message?: string }>;
 };
 
 const initialForm: CategoryFormInput = {
@@ -29,9 +29,9 @@ export function AddCategoryModal({ open, onOpenChange, onSubmit }: AddCategoryMo
     }
   }, [open]);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const result = onSubmit(form);
+    const result = await onSubmit(form);
 
     if (!result.ok) {
       setError(result.message ?? "ไม่สามารถเพิ่มหมวดหมู่ได้");

@@ -3,29 +3,42 @@ import { ImagePlus, PackagePlus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input, Label, Select } from "@/components/ui/input";
-import type { NewSolarProductInput, SolarCategory, SolarProductCategoryName, SolarProductStatus } from "@/types/solar-product";
+import { PRODUCT_IMAGE_FALLBACK } from "@/lib/product-images";
+import type { NewSolarProductInput, SolarCategory, SolarProduct, SolarProductCategoryName, SolarProductStatus } from "@/types/solar-product";
 
 type AddProductModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   defaultCategory: SolarProductCategoryName;
   categories: SolarCategory[];
-  onSubmit: (product: NewSolarProductInput) => void;
+  product?: SolarProduct | null;
+  title?: string;
+  submitLabel?: string;
+  onSubmit: (product: NewSolarProductInput) => void | Promise<void>;
 };
 
 type AddProductForm = Pick<NewSolarProductInput, "name" | "category" | "stock" | "unit" | "image">;
 
-const initialForm = (category: SolarProductCategoryName): AddProductForm => ({
-  name: "",
-  category,
-  stock: 0,
-  unit: "ชิ้น",
-  image: ""
+const initialForm = (category: SolarProductCategoryName, product?: SolarProduct | null): AddProductForm => ({
+  name: product?.name ?? "",
+  category: product?.category || category,
+  stock: product?.stock ?? 0,
+  unit: product?.unit ?? "ชิ้น",
+  image: product?.image ?? ""
 });
 
-export function AddProductModal({ open, onOpenChange, defaultCategory, categories, onSubmit }: AddProductModalProps) {
+export function AddProductModal({
+  open,
+  onOpenChange,
+  defaultCategory,
+  categories,
+  product,
+  title = "เพิ่มรายการสินค้าใหม่",
+  submitLabel = "บันทึกสินค้า",
+  onSubmit
+}: AddProductModalProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [form, setForm] = useState<AddProductForm>(() => initialForm(defaultCategory));
+  const [form, setForm] = useState<AddProductForm>(() => initialForm(defaultCategory, product));
   const [stockText, setStockText] = useState("0");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState("");
@@ -35,9 +48,9 @@ export function AddProductModal({ open, onOpenChange, defaultCategory, categorie
 
   useEffect(() => {
     if (open) {
-      resetForm(defaultCategory);
+      resetForm(defaultCategory, { nextProduct: product });
     }
-  }, [defaultCategory, open]);
+  }, [defaultCategory, open, product]);
 
   const updateField = <Key extends keyof AddProductForm>(key: Key, value: AddProductForm[Key]) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -47,19 +60,22 @@ export function AddProductModal({ open, onOpenChange, defaultCategory, categorie
   const handleOpenChange = (nextOpen: boolean) => {
     onOpenChange(nextOpen);
     if (!nextOpen) {
-      resetForm(defaultCategory, { revokePreview: true });
+      resetForm(defaultCategory, { revokePreview: true, nextProduct: product });
     }
   };
 
-  const resetForm = (category: SolarProductCategoryName, options: { revokePreview?: boolean } = {}) => {
-    if (options.revokePreview && imagePreview) {
+  const resetForm = (
+    category: SolarProductCategoryName,
+    options: { revokePreview?: boolean; nextProduct?: SolarProduct | null } = {}
+  ) => {
+    if (options.revokePreview && imagePreview.startsWith("blob:")) {
       URL.revokeObjectURL(imagePreview);
     }
 
-    setForm(initialForm(category));
-    setStockText("0");
+    setForm(initialForm(category, options.nextProduct));
+    setStockText(`${options.nextProduct?.stock ?? 0}`);
     setSelectedImage(null);
-    setImagePreview("");
+    setImagePreview(options.nextProduct?.image ?? "");
     setErrors({});
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -70,18 +86,18 @@ export function AddProductModal({ open, onOpenChange, defaultCategory, categorie
     const file = event.target.files?.[0];
     if (!file) return;
 
-    if (imagePreview) {
+    if (imagePreview.startsWith("blob:")) {
       URL.revokeObjectURL(imagePreview);
     }
 
     const previewUrl = URL.createObjectURL(file);
     setSelectedImage(file);
     setImagePreview(previewUrl);
-    updateField("image", previewUrl);
+    updateField("image", "");
   };
 
   const removeSelectedImage = () => {
-    if (imagePreview) {
+    if (imagePreview.startsWith("blob:")) {
       URL.revokeObjectURL(imagePreview);
     }
 
@@ -115,7 +131,8 @@ export function AddProductModal({ open, onOpenChange, defaultCategory, categorie
       brand: "-",
       stock,
       unit: form.unit.trim() || "ชิ้น",
-      image: form.image.trim(),
+      image: selectedImage ? "" : form.image.trim(),
+      imageFile: selectedImage,
       note: ""
     });
 
@@ -130,7 +147,7 @@ export function AddProductModal({ open, onOpenChange, defaultCategory, categorie
           <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-yellow-400 text-slate-950">
             <PackagePlus className="h-5 w-5" />
           </div>
-          <DialogTitle className="mt-3">เพิ่มรายการสินค้าใหม่</DialogTitle>
+          <DialogTitle className="mt-3">{title}</DialogTitle>
           <DialogDescription>บันทึกรายการสินค้าไว้ในหน้านี้ชั่วคราว โดยยังไม่เชื่อมต่อฐานข้อมูลหรือ API</DialogDescription>
         </DialogHeader>
 
@@ -141,7 +158,14 @@ export function AddProductModal({ open, onOpenChange, defaultCategory, categorie
               <div className="overflow-hidden rounded-lg border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950">
                 <div className="flex aspect-square items-center justify-center p-3">
                   {imagePreview ? (
-                    <img src={imagePreview} alt={selectedImage?.name ?? form.name} className="h-full w-full rounded-md object-contain" />
+                    <img
+                      src={imagePreview}
+                      alt={selectedImage?.name ?? form.name}
+                      className="h-full w-full rounded-md object-contain"
+                      onError={(event) => {
+                        event.currentTarget.src = PRODUCT_IMAGE_FALLBACK;
+                      }}
+                    />
                   ) : (
                     <div className="flex h-full w-full flex-col items-center justify-center rounded-md border border-dashed border-slate-300 bg-white text-center dark:border-slate-700 dark:bg-slate-900">
                       <ImagePlus className="h-10 w-10 text-slate-400" />
@@ -218,7 +242,7 @@ export function AddProductModal({ open, onOpenChange, defaultCategory, categorie
               ยกเลิก
             </Button>
             <Button type="submit" className="bg-yellow-400 text-slate-950 hover:bg-yellow-300">
-              บันทึกสินค้า
+              {submitLabel}
             </Button>
           </div>
         </form>

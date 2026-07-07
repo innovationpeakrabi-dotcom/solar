@@ -8,7 +8,7 @@ type EditCategoryModalProps = {
   category: SolarCategory | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit: (id: string, category: CategoryFormInput) => { ok: boolean; message?: string };
+  onSubmit: (id: string, category: CategoryFormInput) => Promise<{ ok: boolean; message?: string }>;
 };
 
 export function EditCategoryModal({ category, open, onOpenChange, onSubmit }: EditCategoryModalProps) {
@@ -32,11 +32,11 @@ export function EditCategoryModal({ category, open, onOpenChange, onSubmit }: Ed
     }
   }, [category, open]);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!category) return;
 
-    const result = onSubmit(category.id, form);
+    const result = await onSubmit(category.id, form);
     if (!result.ok) {
       setError(result.message ?? "ไม่สามารถแก้ไขหมวดหมู่ได้");
       return;

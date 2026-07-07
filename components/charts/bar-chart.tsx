@@ -15,7 +15,7 @@ export function BarChartCard({
   keys: string[];
   colors: string[];
 }) {
-  const max = Math.max(...data.flatMap((item) => keys.map((key) => Number(item[key]))));
+  const max = Math.max(1, ...data.flatMap((item) => keys.map((key) => Number(item[key]))));
 
   return (
     <Card className="animate-fade-in">

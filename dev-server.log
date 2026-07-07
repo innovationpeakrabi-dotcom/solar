@@ -1,0 +1,95 @@
+
+> inventory-management-dashboard@1.0.0 dev
+> next dev --port 3000
+
+   ▲ Next.js 15.5.20
+   - Local:        http://localhost:3000
+   - Network:      http://172.27.41.143:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 5.3s
+ ○ Compiling /categories ...
+ ✓ Compiled / in 6.6s (579 modules)
+ GET / 200 in 8846ms
+ GET /categories 200 in 3334ms
+ GET / 200 in 393ms
+ GET / 200 in 323ms
+ GET / 200 in 570ms
+ ✓ Compiled in 9.6s (366 modules)
+ ✓ Compiled in 1145ms (577 modules)
+ ✓ Compiled in 354ms (366 modules)
+ ✓ Compiled in 417ms (366 modules)
+ ✓ Compiled in 409ms (366 modules)
+ ✓ Compiled in 461ms (366 modules)
+ ✓ Compiled in 670ms (366 modules)
+ ✓ Compiled in 496ms (366 modules)
+ ✓ Compiled in 441ms (366 modules)
+ ✓ Compiled in 528ms (366 modules)
+ ✓ Compiled in 447ms (366 modules)
+ ✓ Compiled in 360ms (366 modules)
+ ✓ Compiled in 491ms (366 modules)
+ ✓ Compiled in 456ms (366 modules)
+ ✓ Compiled in 678ms (366 modules)
+ ✓ Compiled in 500ms (366 modules)
+ ✓ Compiled in 486ms (366 modules)
+ ✓ Compiled in 477ms (366 modules)
+ ✓ Compiled in 306ms (366 modules)
+ GET / 200 in 1506ms
+ ○ Compiling /reports ...
+ ✓ Compiled /reports in 4.1s (625 modules)
+ GET /movements 200 in 5031ms
+ GET /products 200 in 5152ms
+ GET /reports 200 in 5303ms
+ GET /test-db 200 in 5350ms
+ GET / 200 in 516ms
+ GET / 200 in 339ms
+ GET / 200 in 1262ms
+ GET / 200 in 375ms
+ GET / 200 in 747ms
+ ✓ Compiled in 12.4s (577 modules)
+ ✓ Compiled in 2.1s (576 modules)
+ ✓ Compiled in 981ms (576 modules)
+ ✓ Compiled in 548ms (365 modules)
+ ✓ Compiled in 399ms (365 modules)
+ ✓ Compiled in 444ms (365 modules)
+ ✓ Compiled in 349ms (365 modules)
+ GET / 200 in 1570ms
+ ○ Compiling /test-db ...
+ ✓ Compiled /test-db in 2.9s (614 modules)
+ GET /products 200 in 3918ms
+ GET /test-db 200 in 3968ms
+ GET /reports 200 in 4167ms
+ ✓ Compiled in 823ms (576 modules)
+ GET / 200 in 1669ms
+ ✓ Compiled in 495ms (365 modules)
+ GET / 200 in 2808ms
+ ○ Compiling /products ...
+ ✓ Compiled /products in 760ms (590 modules)
+ GET /products 200 in 2155ms
+ ○ Compiling /reports ...
+ ✓ Compiled /reports in 2.8s (606 modules)
+ GET /reports 200 in 3778ms
+ ○ Compiling /test-db ...
+ ✓ Compiled /test-db in 737ms (614 modules)
+ GET /test-db 200 in 1375ms
+ ✓ Compiled in 4.8s (365 modules)
+ ✓ Compiled in 1971ms (365 modules)
+ ✓ Compiled in 3.9s (580 modules)
+ ✓ Compiled in 1485ms (580 modules)
+ ○ Compiling /products ...
+ GET / 200 in 4173ms
+ ✓ Compiled /products in 5s (594 modules)
+ GET /products 200 in 6185ms
+ GET / 200 in 472ms
+ GET / 200 in 1691ms
+ ✓ Compiled in 11.1s (580 modules)
+ ✓ Compiled in 1598ms (580 modules)
+ ○ Compiling /products ...
+ ✓ Compiled /products in 3.5s (594 modules)
+ GET / 200 in 6543ms
+ GET /products 200 in 6505ms
+ GET / 200 in 373ms
+ ✓ Compiled in 10.2s (367 modules)
+ ✓ Compiled in 1226ms (367 modules)
+ ✓ Compiled in 6.1s (582 modules)

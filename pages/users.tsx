@@ -1,12 +1,9 @@
 import type { ReactNode } from "react";
-import { Plus, ShieldCheck } from "lucide-react";
-import { users } from "@/data/mock";
-import { Badge } from "@/components/ui/badge";
+import { Plus, ShieldCheck, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input, Label, Select } from "@/components/ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DashboardLayout } from "@/layouts/dashboard-layout";
 import { PageHeader } from "@/components/page-header";
 
@@ -15,20 +12,27 @@ export default function UsersPage() {
     <DashboardLayout title="ผู้ใช้งาน">
       <PageHeader
         title="ผู้ใช้งาน"
-        description="บริหารผู้ใช้งาน บทบาท และสิทธิ์การเข้าถึงข้อมูลคลังสินค้า"
+        description="หน้านี้ยังไม่เชื่อมตารางผู้ใช้งานใน Supabase จึงไม่แสดงข้อมูล mock เพื่อป้องกันข้อมูลไม่ตรงกับฐานข้อมูล"
         actions={
           <Dialog>
             <DialogTrigger asChild>
-              <Button><Plus className="h-4 w-4" />เพิ่มผู้ใช้งาน</Button>
+              <Button>
+                <Plus className="h-4 w-4" />
+                เพิ่มผู้ใช้งาน
+              </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>เพิ่มผู้ใช้งาน</DialogTitle>
-                <DialogDescription>กรอกข้อมูลพื้นฐานและเลือกบทบาทสำหรับระบบสต๊อกสินค้า</DialogDescription>
+                <DialogDescription>ฟอร์มตัวอย่างนี้ยังไม่บันทึกลงฐานข้อมูล เพราะยังไม่มีตาราง users ใน schema ปัจจุบัน</DialogDescription>
               </DialogHeader>
               <div className="mt-5 grid gap-4">
-                <Field label="ชื่อผู้ใช้งาน"><Input placeholder="ชื่อ-นามสกุล" /></Field>
-                <Field label="อีเมล"><Input type="email" placeholder="name@company.co.th" /></Field>
+                <Field label="ชื่อผู้ใช้งาน">
+                  <Input placeholder="ชื่อ-นามสกุล" />
+                </Field>
+                <Field label="อีเมล">
+                  <Input type="email" placeholder="name@company.co.th" />
+                </Field>
                 <Field label="บทบาท">
                   <Select>
                     <option>Inventory Manager</option>
@@ -36,39 +40,26 @@ export default function UsersPage() {
                     <option>Auditor</option>
                   </Select>
                 </Field>
-                <Button><ShieldCheck className="h-4 w-4" />ส่งคำเชิญ</Button>
+                <Button>
+                  <ShieldCheck className="h-4 w-4" />
+                  เตรียมส่งคำเชิญ
+                </Button>
               </div>
             </DialogContent>
           </Dialog>
         }
       />
 
-      <Card className="overflow-hidden">
-        <CardHeader>
-          <CardTitle>ทีมคลังสินค้า</CardTitle>
-        </CardHeader>
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>ชื่อ</TableHead>
-                <TableHead>อีเมล</TableHead>
-                <TableHead>บทบาท</TableHead>
-                <TableHead>สถานะ</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {users.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell className="font-medium text-slate-950 dark:text-white">{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.role}</TableCell>
-                  <TableCell><Badge variant={user.status === "Active" ? "green" : "amber"}>{user.status}</Badge></TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+      <Card>
+        <CardContent className="flex min-h-72 flex-col items-center justify-center p-8 text-center">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-300">
+            <Users className="h-7 w-7" />
+          </div>
+          <h2 className="mt-4 text-lg font-semibold text-slate-950 dark:text-white">ยังไม่มีตารางผู้ใช้งานใน Supabase</h2>
+          <p className="mt-2 max-w-md text-sm text-slate-500 dark:text-slate-400">
+            ลบข้อมูล mock ออกจากหน้านี้แล้ว เพื่อให้ข้อมูลบนหน้าเว็บไม่คลาดเคลื่อนจากฐานข้อมูลจริง
+          </p>
+        </CardContent>
       </Card>
     </DashboardLayout>
   );

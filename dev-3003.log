@@ -1,0 +1,20 @@
+
+> inventory-management-dashboard@1.0.0 dev
+> next dev --port 3003
+
+   ▲ Next.js 15.5.20
+   - Local:        http://localhost:3003
+   - Network:      http://172.27.41.143:3003
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 9.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 26.5s (558 modules)
+ GET / 200 in 529ms
+ ✓ Compiled in 1847ms (558 modules)
+ ○ Compiling /categories ...
+ ✓ Compiled /categories in 17.5s (592 modules)
+ GET / 200 in 29222ms
+ GET /test-db 200 in 29176ms
+ GET /categories 200 in 29178ms

@@ -13,13 +13,20 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: #f7f9fc;
+  background:
+    radial-gradient(circle at top left, rgba(249, 115, 22, 0.1), transparent 34rem),
+    radial-gradient(circle at top right, rgba(37, 99, 235, 0.1), transparent 32rem),
+    linear-gradient(180deg, #f8fafc 0%, #eef6f3 48%, #f8fafc 100%);
   color: #0f172a;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Inter, "Noto Sans Thai", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-rendering: geometricPrecision;
 }
 
 .dark body {
-  background: #0b1120;
+  background:
+    radial-gradient(circle at top left, rgba(249, 115, 22, 0.12), transparent 30rem),
+    radial-gradient(circle at top right, rgba(6, 182, 212, 0.14), transparent 32rem),
+    linear-gradient(180deg, #020617 0%, #08111f 52%, #020617 100%);
   color: #e5e7eb;
 }
 
@@ -28,7 +35,32 @@ body {
 }
 
 ::selection {
-  background: rgba(37, 99, 235, 0.18);
+  background: rgba(249, 115, 22, 0.22);
+}
+
+@layer utilities {
+  .premium-panel {
+    @apply border border-white/70 bg-white/80 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70 dark:shadow-[0_24px_80px_rgba(0,0,0,0.28)];
+  }
+
+  .premium-ring {
+    @apply ring-1 ring-slate-900/5 dark:ring-white/10;
+  }
+
+  .animate-soft-in {
+    animation: soft-in 260ms ease-out both;
+  }
+}
+
+@keyframes soft-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 ::-webkit-scrollbar {

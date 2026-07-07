@@ -14,7 +14,7 @@ export function TableBody({ className, ...props }: React.HTMLAttributes<HTMLTabl
 }
 
 export function TableRow({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) {
-  return <tr className={cn("transition-colors hover:bg-slate-50/80 dark:hover:bg-slate-800/45", className)} {...props} />;
+  return <tr className={cn("transition-colors hover:bg-slate-50/80 dark:hover:bg-slate-800/40", className)} {...props} />;
 }
 
 export function TableHead({ className, ...props }: React.ThHTMLAttributes<HTMLTableCellElement>) {

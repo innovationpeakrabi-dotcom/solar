@@ -8,12 +8,14 @@ export type SolarCategory = {
   description: string;
   icon?: string;
   color: string;
+  productCount?: number;
 };
 
 export type SolarProduct = {
-  id: number;
+  id: string;
   sku: string;
   name: string;
+  categoryId: string | null;
   category: SolarProductCategoryName;
   brand: string;
   stock: number;
@@ -31,6 +33,7 @@ export type NewSolarProductInput = {
   stock: number;
   unit: string;
   image: string;
+  imageFile?: File | null;
   note: string;
 };
 

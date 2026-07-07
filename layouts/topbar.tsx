@@ -1,4 +1,4 @@
-import { Bell, Menu, Moon, Search, Sun, Zap } from "lucide-react";
+import { Bell, Menu, Moon, Search, ShieldCheck, Sun, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -12,25 +12,30 @@ export function Topbar({
   onToggleDarkMode: () => void;
 }) {
   return (
-    <header className="sticky top-0 z-20 border-b border-cyan-900/10 bg-white/82 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/85">
-      <div className="flex h-16 items-center gap-3 px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-20 border-b border-white/60 bg-white/70 shadow-[0_12px_40px_rgba(15,23,42,0.05)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/70">
+      <div className="flex min-h-16 items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
         <Button className="lg:hidden" variant="ghost" size="icon" aria-label="เปิดเมนู" onClick={onMenuClick}>
           <Menu className="h-5 w-5" />
         </Button>
 
         <div className="relative hidden flex-1 sm:block">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-cyan-700/60" />
+          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <Input
-            className="max-w-xl border-cyan-100 bg-white/90 pl-9 focus:border-cyan-400 focus:ring-cyan-400/15"
-            placeholder="ค้นหาแผงโซลาร์, inverter, battery, เอกสาร..."
+            className="h-12 max-w-2xl border-white/70 bg-white/90 pl-11 shadow-[0_10px_30px_rgba(15,23,42,0.06)] focus:border-orange-300 dark:border-white/10 dark:bg-slate-900/80"
+            placeholder="ค้นหาสินค้า หมวดหมู่ เอกสาร หรือสต็อก..."
           />
         </div>
 
         <div className="ml-auto flex items-center gap-2">
-          <div className="hidden items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-700 md:flex">
+          <div className="hidden items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50/90 px-3 py-2 text-xs font-bold text-emerald-700 shadow-sm md:flex dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-200">
             <Zap className="h-4 w-4" />
             Grid Online
           </div>
+          <div className="hidden items-center gap-2 rounded-full border border-blue-200 bg-blue-50/90 px-3 py-2 text-xs font-bold text-blue-700 shadow-sm xl:flex dark:border-blue-400/20 dark:bg-blue-400/10 dark:text-blue-200">
+            <ShieldCheck className="h-4 w-4" />
+            Supabase Ready
+          </div>
+
           <Button variant="ghost" size="icon" aria-label="ค้นหา">
             <Search className="h-5 w-5 sm:hidden" />
           </Button>
@@ -41,15 +46,15 @@ export function Topbar({
             {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
 
-          <div className="ml-1 hidden items-center gap-3 rounded-md border border-cyan-100 bg-white px-2 py-1.5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:flex">
+          <div className="ml-1 hidden items-center gap-3 rounded-2xl border border-white/70 bg-white/85 px-2 py-1.5 shadow-[0_12px_34px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-slate-900/80 sm:flex">
             <img
               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80"
               alt="Profile"
-              className="h-8 w-8 rounded-md object-cover"
+              className="h-9 w-9 rounded-xl object-cover ring-2 ring-white dark:ring-slate-800"
             />
-            <div className="leading-tight">
-              <p className="text-sm font-semibold text-slate-950 dark:text-white">อริสา เมธากุล</p>
-              <p className="text-xs text-slate-500">Solar Admin</p>
+            <div className="pr-2 leading-tight">
+              <p className="text-sm font-bold text-slate-950 dark:text-white">อริสา เมธากุล</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Solar Admin</p>
             </div>
           </div>
         </div>

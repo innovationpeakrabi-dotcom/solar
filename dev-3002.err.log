@@ -1,0 +1,56 @@
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|javascript/auto|C:\Users\469660\Desktop\New folder\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[8].oneOf[13].use[1]!C:\Users\469660\Desktop\New folder\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[8].oneOf[13].use[2]!C:\Users\469660\Desktop\New folder\styles\globals.css|pages-dir-browser': No serializer registered for PostCSSSyntaxError
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> webpack/lib/ModuleBuildError -> PostCSSSyntaxError
+ ⨯ ./styles/globals.css:43:5
+Syntax error: C:\Users\469660\Desktop\New folder\styles\globals.css The `bg-white/82` class does not exist. If `bg-white/82` is a custom class, make sure it is defined within a `@layer` directive.
+
+ [90m 41 | [39m[36m@layer[39m utilities [33m{[39m
+ [90m 42 | [39m  [33m.premium-panel[39m [33m{[39m
+[1m[31m>[39m[22m[90m 43 | [39m    [36m@apply[39m border border-white/70 bg-white/82 shadow-[33m[[39m[36m0_24px_80px_rgba[39m[36m(15,23,42,0.08)[39m[33m][39m backdrop-blur-xl dark[33m:[39mborder-white/10 dark[33m:[39mbg-slate-950/72 dark[33m:[39mshadow-[33m[[39m[36m0_24px_80px_rgba[39m[36m(0,0,0,0.28)[39m[33m][39m[33m;[39m
+ [90m    | [39m    [1m[31m^[39m[22m
+ [90m 44 | [39m  [33m}[39m
+ [90m 45 | [39m
+ ⨯ ./styles/globals.css:43:5
+Syntax error: C:\Users\469660\Desktop\New folder\styles\globals.css The `bg-white/82` class does not exist. If `bg-white/82` is a custom class, make sure it is defined within a `@layer` directive.
+
+ [90m 41 | [39m[36m@layer[39m utilities [33m{[39m
+ [90m 42 | [39m  [33m.premium-panel[39m [33m{[39m
+[1m[31m>[39m[22m[90m 43 | [39m    [36m@apply[39m border border-white/70 bg-white/82 shadow-[33m[[39m[36m0_24px_80px_rgba[39m[36m(15,23,42,0.08)[39m[33m][39m backdrop-blur-xl dark[33m:[39mborder-white/10 dark[33m:[39mbg-slate-950/72 dark[33m:[39mshadow-[33m[[39m[36m0_24px_80px_rgba[39m[36m(0,0,0,0.28)[39m[33m][39m[33m;[39m
+ [90m    | [39m    [1m[31m^[39m[22m
+ [90m 44 | [39m  [33m}[39m
+ [90m 45 | [39m
+RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+ ⨯ unhandledRejection: RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+ ⨯ unhandledRejection:  RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+[RangeError: Failed to allocate memory] {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+ ⨯ uncaughtException: [RangeError: Failed to allocate memory] {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+ ⨯ uncaughtException:  [RangeError: Failed to allocate memory] {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+ ⨯ unhandledRejection: RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+ ⨯ unhandledRejection:  RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Failed to allocate memory
+React expects the `children` prop of <title> tags to be a string, number, bigint, or object with a novel `toString` method but found an Array with length 2 instead. Browsers treat all child Nodes of <title> tags as Text content and React expects to be able to convert `children` of <title> tags to a single string value which is why Arrays of length greater than 1 are not supported. When using JSX it can be common to combine text nodes and value nodes. For example: <title>hello {nameOfUser}</title>. While not immediately apparent, `children` in this case is an Array with length 2. If your `children` prop is using this form try rewriting it using a template string: <title>{`hello ${nameOfUser}`}</title>.
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\469660\Desktop\New folder\.next\cache\webpack\server-development\1.pack.gz_' -> 'C:\Users\469660\Desktop\New folder\.next\cache\webpack\server-development\1.pack.gz'

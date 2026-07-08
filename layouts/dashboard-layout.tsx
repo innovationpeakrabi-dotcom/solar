@@ -17,7 +17,7 @@ export function DashboardLayout({ children, title }: { children: ReactNode; titl
         <title>{`${title} | Inventory Pro`}</title>
         <meta name="description" content="Inventory Management System Dashboard" />
       </Head>
-      <div className="min-h-screen text-slate-950 dark:text-slate-100">
+      <div className="min-h-[100dvh] overflow-x-hidden text-slate-950 dark:text-slate-100 sm:min-h-screen">
         <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <div className="lg:pl-72">
           <Topbar
@@ -25,9 +25,10 @@ export function DashboardLayout({ children, title }: { children: ReactNode; titl
             darkMode={darkMode}
             onToggleDarkMode={() => setDarkMode((value) => !value)}
           />
-          <main className="mx-auto w-full max-w-[1720px] px-4 py-6 sm:px-6 lg:px-8 lg:py-9">{children}</main>
+          <main className="mx-auto w-full max-w-[1720px] overflow-x-hidden px-4 py-4 sm:overflow-visible sm:px-6 sm:py-6 lg:px-8 lg:py-9">{children}</main>
         </div>
       </div>
     </>
   );
 }
+

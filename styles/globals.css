@@ -115,6 +115,38 @@ select {
   .animate-soft-in {
     animation: soft-in 260ms ease-out both;
   }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  html,
+  body,
+  #__next {
+    max-width: 100%;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at 14% 0%, rgba(249, 115, 22, 0.14), transparent 18rem),
+      radial-gradient(circle at 86% 8%, rgba(14, 165, 233, 0.16), transparent 20rem),
+      linear-gradient(180deg, #ffffff 0%, #eef8ff 46%, #fff7ed 100%);
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
 }
 
 @keyframes soft-in {

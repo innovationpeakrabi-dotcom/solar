@@ -11,9 +11,9 @@ export function Topbar({
   onToggleDarkMode: () => void;
 }) {
   return (
-    <header className="sticky top-0 z-20 border-b border-white/60 bg-white/70 shadow-[0_12px_40px_rgba(15,23,42,0.05)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/70">
-      <div className="flex min-h-16 items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
-        <Button className="lg:hidden" variant="ghost" size="icon" aria-label="เปิดเมนู" onClick={onMenuClick}>
+    <header className="sticky top-0 z-20 border-b border-white/60 bg-white/75 pt-[env(safe-area-inset-top)] shadow-[0_10px_28px_rgba(15,23,42,0.05)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/70 sm:bg-white/70 sm:pt-0 sm:shadow-[0_12px_40px_rgba(15,23,42,0.05)]">
+      <div className="flex min-h-[56px] items-center gap-2 px-4 py-2 sm:min-h-16 sm:gap-3 sm:px-6 sm:py-3 lg:px-8">
+        <Button className="h-10 w-10 shadow-sm lg:hidden" variant="ghost" size="icon" aria-label="เปิดเมนู" onClick={onMenuClick}>
           <Menu className="h-5 w-5" />
         </Button>
 
@@ -27,10 +27,10 @@ export function Topbar({
             Supabase Ready
           </div>
 
-          <Button variant="ghost" size="icon" aria-label="แจ้งเตือน">
+          <Button className="h-10 w-10 shadow-sm sm:h-9 sm:w-9 sm:shadow-none" variant="ghost" size="icon" aria-label="แจ้งเตือน">
             <Bell className="h-5 w-5" />
           </Button>
-          <Button variant="ghost" size="icon" aria-label="สลับโหมดสี" onClick={onToggleDarkMode}>
+          <Button className="h-10 w-10 shadow-sm sm:h-9 sm:w-9 sm:shadow-none" variant="ghost" size="icon" aria-label="สลับโหมดสี" onClick={onToggleDarkMode}>
             {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
         </div>
@@ -38,3 +38,4 @@ export function Topbar({
     </header>
   );
 }
+

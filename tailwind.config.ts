@@ -28,6 +28,7 @@ const config: Config = {
       },
       animation: {
         "fade-in": "fadeIn 220ms ease-out",
+        "modal-scale": "modalScale 180ms ease-out",
         "slide-up": "slideUp 260ms ease-out",
         "pulse-soft": "pulseSoft 1.6s ease-in-out infinite"
       },
@@ -39,6 +40,10 @@ const config: Config = {
         slideUp: {
           "0%": { opacity: "0", transform: "translateY(8px)" },
           "100%": { opacity: "1", transform: "translateY(0)" }
+        },
+        modalScale: {
+          "0%": { opacity: "0", transform: "scale(0.98)" },
+          "100%": { opacity: "1", transform: "scale(1)" }
         },
         pulseSoft: {
           "0%, 100%": { opacity: "0.55" },

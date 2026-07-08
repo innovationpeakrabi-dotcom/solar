@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { BarChart3, LayoutDashboard, PlugZap, Sparkles, SunMedium, Tags, Zap } from "lucide-react";
+import { LayoutDashboard, PlugZap, SunMedium, Tags } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navigation = [
@@ -68,17 +68,6 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
               );
             })}
           </div>
-
-          <div className="mt-6 rounded-3xl border border-white/10 bg-white/[0.06] p-4 shadow-2xl backdrop-blur">
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-yellow-300" />
-              <p className="text-[14.5px] font-medium text-white">Live Solar Ops</p>
-            </div>
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <Metric icon={Zap} label="Grid" value="Online" />
-              <Metric icon={BarChart3} label="Stock" value="Synced" />
-            </div>
-          </div>
         </nav>
 
         <div className="relative border-t border-white/10 p-4">
@@ -95,15 +84,5 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
         </div>
       </aside>
     </>
-  );
-}
-
-function Metric({ icon: Icon, label, value }: { icon: typeof Zap; label: string; value: string }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-3">
-      <Icon className="h-4 w-4 text-cyan-200" />
-      <p className="mt-2 text-[11px] text-slate-400">{label}</p>
-      <p className="text-[12.5px] font-medium text-white">{value}</p>
-    </div>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { AlertTriangle, BatteryCharging, Boxes, FolderTree, PackageOpen, Plus, Search, type LucideIcon } from "lucide-react";
 import { AddProductModal, getStatusFromStock } from "@/components/add-product-modal";
-import { ProductCard, ProductImagePreview } from "@/components/product-card";
+import { ProductCard, StockCheckModal } from "@/components/product-card";
 import { SolarEquipmentModal } from "@/components/solar-equipment-modal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -23,24 +23,20 @@ export function SolarDashboard() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    if (categories.length === 0) {
+    if (selectedCategoryId && !categories.some((category) => category.id === selectedCategoryId)) {
       setSelectedCategoryId("");
-      return;
-    }
-
-    if (!categories.some((category) => category.id === selectedCategoryId)) {
-      setSelectedCategoryId(categories[0].id);
     }
   }, [categories, selectedCategoryId]);
 
-  const selectedCategoryData = categories.find((category) => category.id === selectedCategoryId) ?? categories[0] ?? null;
+  const selectedCategoryData = categories.find((category) => category.id === selectedCategoryId) ?? null;
   const formDefaultCategory = selectedCategoryData?.name ?? categories[0]?.name ?? "";
+  const isAllCategoriesSelected = selectedCategoryId === "";
 
   const filteredProducts = useMemo(() => {
     const query = search.trim().toLowerCase();
 
     return products.filter((product) => {
-      const matchesCategory = Boolean(selectedCategoryId) && product.categoryId === selectedCategoryId;
+      const matchesCategory = !selectedCategoryId || product.categoryId === selectedCategoryId;
       const matchesSearch =
         query.length === 0 ||
         [product.name, product.category, product.status, product.unit].some((value) => value.toLowerCase().includes(query));
@@ -95,9 +91,25 @@ export function SolarDashboard() {
     if (nextCategoryId) setSelectedCategoryId(nextCategoryId);
     setEditingProduct(null);
     setSearch("");
-    const updateResult = result;
     toast({ title: "แก้ไขสินค้าเรียบร้อยแล้ว" });
-    return updateResult;
+    return result;
+  };
+
+  const handleStockCheck = async (product: SolarProduct, stock: number, imageFile?: File | null) => {
+    const result = await updateProduct(product.id, {
+      name: product.name,
+      category: product.category,
+      stock,
+      unit: product.unit,
+      status: getStatusFromStock(stock),
+      image: imageFile ? "" : product.image,
+      imageFile: imageFile ?? null
+    });
+
+    if (!result.ok) return result;
+
+    toast({ title: "บันทึกจำนวนใหม่เรียบร้อยแล้ว" });
+    return result;
   };
 
   const handleDeleteProduct = async (product: SolarProduct) => {
@@ -125,7 +137,7 @@ export function SolarDashboard() {
   return (
     <div className="animate-soft-in space-y-6 rounded-3xl bg-slate-100/80 p-5 pb-7 dark:bg-slate-950/30 sm:p-6">
       <SolarEquipmentModal open={equipmentOpen} onOpenChange={setEquipmentOpen} />
-      <ProductImagePreview product={previewProduct} onOpenChange={(open) => !open && setPreviewProduct(null)} />
+      <StockCheckModal product={previewProduct} onOpenChange={(open) => !open && setPreviewProduct(null)} onSaveStock={handleStockCheck} />
       <AddProductModal open={addProductOpen} onOpenChange={setAddProductOpen} defaultCategory={formDefaultCategory} categories={categories} onSubmit={handleAddProduct} />
       <AddProductModal
         open={Boolean(editingProduct)}
@@ -152,15 +164,38 @@ export function SolarDashboard() {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className="text-[23px] font-semibold leading-tight text-slate-950 dark:text-white">หมวดหมู่สินค้า Solar</h2>
-            <p className="mt-1.5 text-[13.5px] font-normal leading-6 text-slate-500 dark:text-slate-400">เลือกหมวดหมู่จากข้อมูลจริงใน Supabase เพื่อดูรายการสินค้า</p>
           </div>
           <Button variant="outline" onClick={() => setEquipmentOpen(true)}>
             ดูรายการอุปกรณ์ติดตั้ง
           </Button>
         </div>
 
-        {categories.length > 0 ? (
-          <div className="mt-5 grid gap-4 md:grid-cols-3 xl:grid-cols-4">
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <button
+            className={[
+              "rounded-lg border bg-white p-3.5 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:bg-slate-950",
+              isAllCategoriesSelected
+                ? "border-orange-300 ring-2 ring-orange-200 dark:border-orange-400/60 dark:ring-orange-400/20"
+                : "border-slate-200 hover:border-slate-300 dark:border-slate-800"
+            ].join(" ")}
+            onClick={() => {
+              setSelectedCategoryId("");
+              setSearch("");
+            }}
+          >
+            <div className="flex items-center gap-2.5">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-white shadow-sm dark:bg-slate-100 dark:text-slate-950">
+                <Boxes className="h-4 w-4" />
+              </span>
+              <span className="min-w-0">
+                <span className="block truncate text-[15.5px] font-semibold leading-snug text-slate-950 dark:text-white">ทั้งหมด</span>
+                <Badge className="mt-2" variant={isAllCategoriesSelected ? "amber" : "blue"}>
+                  {products.length.toLocaleString("th-TH")} รายการ
+                </Badge>
+              </span>
+            </div>
+          </button>
+
             {categories.map((category) => {
               const isActive = selectedCategoryId === category.id;
               const productCount = getProductCountByCategoryId(category.id);
@@ -169,7 +204,7 @@ export function SolarDashboard() {
                 <button
                   key={category.id}
                   className={[
-                    "rounded-lg border bg-white p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:bg-slate-950",
+                    "rounded-lg border bg-white p-3.5 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:bg-slate-950",
                     isActive
                       ? "border-orange-300 ring-2 ring-orange-200 dark:border-orange-400/60 dark:ring-orange-400/20"
                       : "border-slate-200 hover:border-slate-300 dark:border-slate-800"
@@ -179,12 +214,11 @@ export function SolarDashboard() {
                     setSearch("");
                   }}
                 >
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-center gap-2.5">
                     <CategoryIcon category={category} />
                     <span className="min-w-0">
-                      <span className="block text-[17px] font-semibold leading-snug text-slate-950 dark:text-white">{category.name}</span>
-                      <span className="mt-1.5 line-clamp-2 block text-[13px] font-normal leading-6 text-slate-500 dark:text-slate-400">{category.description || "ไม่มีคำอธิบายหมวดหมู่"}</span>
-                      <Badge className="mt-3" variant={isActive ? "amber" : "blue"}>
+                      <span className="block truncate text-[15.5px] font-semibold leading-snug text-slate-950 dark:text-white">{category.name}</span>
+                      <Badge className="mt-2" variant={isActive ? "amber" : "blue"}>
                         {productCount.toLocaleString("th-TH")} รายการ
                       </Badge>
                     </span>
@@ -192,18 +226,15 @@ export function SolarDashboard() {
                 </button>
               );
             })}
-          </div>
-        ) : (
-          <SolarEmptyState title="ยังไม่มีหมวดหมู่สินค้า" description="เพิ่มหมวดหมู่ใน Supabase หรือหน้าจัดการหมวดหมู่ก่อนเริ่มแสดงรายการสินค้า" />
-        )}
+        </div>
       </section>
 
       <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950 sm:p-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-[13px] font-medium text-orange-600 dark:text-orange-300">Product Marketplace</p>
-            <h2 className="mt-1 text-[23px] font-semibold leading-tight text-slate-950 dark:text-white">{selectedCategoryData?.name ?? "ยังไม่มีหมวดหมู่"}</h2>
-            <p className="mt-1.5 text-[13.5px] font-normal leading-6 text-slate-500 dark:text-slate-400">{selectedCategoryData?.description || "เลือกหมวดหมู่เพื่อดูสินค้าใน Supabase"}</p>
+            <h2 className="mt-1 text-[23px] font-semibold leading-tight text-slate-950 dark:text-white">{isAllCategoriesSelected ? "สินค้าทั้งหมด" : (selectedCategoryData?.name ?? "ยังไม่มีหมวดหมู่")}</h2>
+            <p className="mt-1.5 text-[13.5px] font-normal leading-6 text-slate-500 dark:text-slate-400">{isAllCategoriesSelected ? "แสดงสินค้าทุกหมวดหมู่จาก Supabase" : "เลือกหมวดหมู่เพื่อดูสินค้าใน Supabase"}</p>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
             <Badge variant="blue">{filteredProducts.length.toLocaleString("th-TH")} รายการ</Badge>
@@ -245,7 +276,7 @@ export function SolarDashboard() {
 function CategoryIcon({ category }: { category: SolarCategory }) {
   return (
     <span
-      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-sm font-semibold text-white shadow-sm"
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-xs font-semibold text-white shadow-sm"
       style={{ backgroundColor: category.color || "#F97316" }}
     >
       {category.icon || category.name.slice(0, 2)}

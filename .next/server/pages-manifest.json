@@ -1,9 +1,17 @@
 {
   "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/categories": "pages/categories.js",
-  "/products": "pages/products.js",
-  "/products/new": "pages/products/new.js"
+  "/categories": "pages/categories.html",
+  "/": "pages/index.html",
+  "/movements": "pages/movements.html",
+  "/products": "pages/products.html",
+  "/products/new": "pages/products/new.html",
+  "/reports": "pages/reports.html",
+  "/settings": "pages/settings.html",
+  "/stock-in": "pages/stock-in.html",
+  "/stock-out": "pages/stock-out.html",
+  "/test-db": "pages/test-db.html",
+  "/users": "pages/users.html",
+  "/_error": "pages/_error.js",
+  "/404": "pages/404.html"
 }

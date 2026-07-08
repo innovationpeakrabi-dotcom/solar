@@ -154,7 +154,29 @@ export function SolarDashboard() {
         onSubmit={handleUpdateProduct}
       />
 
-      <section className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-5">
+      <section className="flex flex-nowrap items-center justify-between gap-1 overflow-hidden rounded-2xl border border-slate-200 bg-white/90 px-3 py-2 shadow-sm dark:border-slate-800 dark:bg-slate-950/90 sm:hidden">
+        <span className="flex min-w-0 items-center gap-1 whitespace-nowrap text-[10px] font-medium text-slate-500">
+          สินค้า <strong className="text-[13px] font-bold leading-none text-slate-950 dark:text-white">{products.length.toLocaleString("th-TH")}</strong>
+        </span>
+        <span className="h-4 w-px shrink-0 bg-slate-200 dark:bg-slate-800" />
+        <span className="flex min-w-0 items-center gap-1 whitespace-nowrap text-[10px] font-medium text-slate-500">
+          สต็อก <strong className="text-[13px] font-bold leading-none text-slate-950 dark:text-white">{totalStock.toLocaleString("th-TH")}</strong>
+        </span>
+        <span className="h-4 w-px shrink-0 bg-slate-200 dark:bg-slate-800" />
+        <span className="flex min-w-0 items-center gap-1 whitespace-nowrap text-[10px] font-medium text-slate-500">
+          ใกล้หมด <strong className="text-[13px] font-bold leading-none text-slate-950 dark:text-white">{lowStock.toLocaleString("th-TH")}</strong>
+        </span>
+        <span className="h-4 w-px shrink-0 bg-slate-200 dark:bg-slate-800" />
+        <span className="flex min-w-0 items-center gap-1 whitespace-nowrap text-[10px] font-medium text-slate-500">
+          หมด <strong className="text-[13px] font-bold leading-none text-slate-950 dark:text-white">{outOfStock.toLocaleString("th-TH")}</strong>
+        </span>
+        <span className="h-4 w-px shrink-0 bg-slate-200 dark:bg-slate-800" />
+        <span className="flex min-w-0 items-center gap-1 whitespace-nowrap text-[10px] font-medium text-slate-500">
+          หมวด <strong className="text-[13px] font-bold leading-none text-slate-950 dark:text-white">{categories.length.toLocaleString("th-TH")}</strong>
+        </span>
+      </section>
+
+      <section className="hidden sm:grid sm:grid-cols-2 sm:gap-4 xl:grid-cols-5">
         <SummaryCard icon={Boxes} label="รายการสินค้า" value={products.length.toLocaleString("th-TH")} />
         <SummaryCard icon={BatteryCharging} label="สต็อกรวม" value={totalStock.toLocaleString("th-TH")} />
         <SummaryCard icon={AlertTriangle} label="ใกล้หมด" value={lowStock.toLocaleString("th-TH")} />
@@ -170,7 +192,7 @@ export function SolarDashboard() {
           </Button>
         </div>
 
-        <div className="no-scrollbar -mx-4 mt-4 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:mt-5 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-5">
+        <div className="no-scrollbar -mx-4 mt-4 grid grid-flow-col grid-rows-2 auto-cols-[112px] gap-3 overflow-x-auto overflow-y-hidden px-4 pb-2 sm:mx-0 sm:mt-5 sm:grid-flow-row sm:grid-rows-none sm:grid-cols-2 sm:auto-cols-auto sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-5">
           <CategoryButton
             active={isAllCategoriesSelected}
             label="ทั้งหมด"
@@ -279,7 +301,7 @@ function CategoryButton({
   return (
     <button
       className={[
-        "h-[74px] w-[112px] shrink-0 rounded-2xl border bg-white p-3 text-left shadow-sm transition-all duration-200 hover:scale-[1.02] hover:shadow-md dark:bg-slate-950 sm:h-auto sm:w-auto sm:rounded-lg sm:p-3.5 sm:hover:-translate-y-0.5",
+        "h-[66px] min-w-0 rounded-2xl border bg-white p-2 text-left shadow-sm transition-all duration-200 hover:scale-[1.02] hover:shadow-md dark:bg-slate-950 sm:h-auto sm:w-auto sm:rounded-lg sm:p-3.5 sm:hover:-translate-y-0.5",
         active
           ? "border-orange-300 bg-orange-50/70 ring-2 ring-orange-200 dark:border-orange-400/60 dark:bg-orange-400/10 dark:ring-orange-400/20"
           : "border-slate-200 hover:border-slate-300 dark:border-slate-800"
@@ -289,12 +311,12 @@ function CategoryButton({
       <div className="flex h-full flex-col justify-between sm:h-auto sm:flex-row sm:items-center sm:gap-2.5">
         <div className="flex items-center justify-between gap-2 sm:contents">
           {icon}
-          <Badge className="text-[11px] sm:hidden" variant={active ? "amber" : "blue"}>
+          <Badge className="shrink-0 rounded-lg px-2 py-1 text-[11px] font-medium sm:hidden" variant={active ? "amber" : "blue"}>
             {count.toLocaleString("th-TH")}
           </Badge>
         </div>
         <span className="min-w-0">
-          <span className="block truncate text-[13px] font-semibold leading-snug text-slate-950 dark:text-white sm:text-[15.5px]">{label}</span>
+          <span className="block truncate whitespace-nowrap text-[11px] font-semibold leading-tight text-slate-950 dark:text-white sm:text-[15.5px]">{label}</span>
           <Badge className="mt-2 hidden sm:inline-flex" variant={active ? "amber" : "blue"}>
             {count.toLocaleString("th-TH")} รายการ
           </Badge>
@@ -317,14 +339,14 @@ function CategoryIcon({ category }: { category: SolarCategory }) {
 
 function SummaryCard({ icon: Icon, label, value }: { icon: LucideIcon; label: string; value: string }) {
   return (
-    <article className="h-[88px] rounded-2xl border border-slate-200 bg-white p-3.5 shadow-sm dark:border-slate-800 dark:bg-slate-950 sm:h-auto sm:rounded-xl sm:p-5">
-      <div className="flex h-full items-center justify-between gap-3">
-        <div className="min-w-0">
-          <p className="truncate text-[12px] font-normal leading-4 text-slate-500 dark:text-slate-400 sm:text-[13px] sm:leading-5">{label}</p>
-          <p className="mt-1 text-3xl font-bold leading-none text-slate-950 dark:text-white sm:mt-1.5 sm:text-[32px]">{value}</p>
+    <article className="relative h-[60px] min-w-0 flex-1 rounded-xl border border-slate-200 bg-white p-2 shadow-sm dark:border-slate-800 dark:bg-slate-950 sm:h-auto sm:rounded-xl sm:p-5">
+      <div className="flex h-full min-w-0 items-center justify-between gap-1 text-left sm:gap-3">
+        <div className="min-w-0 pr-1 sm:pr-0">
+          <p className="max-w-full truncate whitespace-nowrap text-[9px] font-medium leading-[1.1] tracking-normal text-slate-500 dark:text-slate-400 sm:text-[13px] sm:leading-5">{label}</p>
+          <p className="mt-1 truncate text-[18px] font-bold leading-none tracking-tight text-slate-950 dark:text-white sm:mt-1.5 sm:overflow-visible sm:text-[32px]">{value}</p>
         </div>
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-600 shadow-sm dark:bg-orange-400/10 dark:text-orange-300 sm:h-11 sm:w-11 sm:rounded-lg">
-          <Icon className="h-5 w-5" />
+        <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-[9px] bg-orange-50 text-orange-600 shadow-sm dark:bg-orange-400/10 dark:text-orange-300 sm:h-11 sm:w-11 sm:rounded-lg">
+          <Icon className="h-[14px] w-[14px] sm:h-5 sm:w-5" />
         </span>
       </div>
     </article>
